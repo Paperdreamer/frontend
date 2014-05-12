@@ -1,0 +1,17 @@
+{
+	"name": "Frontend",
+	"version": "0.0.0",
+	"description": "",
+	"main": "index.html",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Tobias Mücksch",
+	"license": "ISC",
+	"devDependencies": {
+		"grunt": "~0.4.2",
+		"grunt-contrib-watch": "~0.5.3",
+		"grunt-contrib-compass": "~0.7.1",
+		"bower": "latest"
+	}
+}
