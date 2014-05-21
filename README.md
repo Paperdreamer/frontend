@@ -1,4 +1,4 @@
-#Backend of Storyboard Web Authoring Platform
+#Backend of Paperdreamer
 ## Dependencies
 - NodeJS
 - Bower
