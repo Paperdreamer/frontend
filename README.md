@@ -1,4 +1,4 @@
-#Backend of Paperdreamer
+#Frontend of Paperdreamer
 ## Dependencies
 - NodeJS
 - Bower
