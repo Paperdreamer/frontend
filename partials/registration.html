@@ -1,0 +1,34 @@
+<div class="row registration">
+	<div class="box col-md-offset-4 col-xs-offset-2 col-md-4 col-xs-8">
+		<h3 style="margin-top: 0px;">Registration</h3>
+		<hr>
+		<form role="form" novalidate name="registrationForm" ng-submit="register()">
+			<div class="form-group" ng-class="{'has-error': registrationForm.Fullname.$dirty && registrationForm.Fullname.$invalid, 'has-success': registrationForm.Fullname.$dirty && registrationForm.Fullname.$valid}">
+				<label class="control-label">* Full name</label>
+				<input class="form-control" type="text" placeholder="" ng-model="registration.Fullname" name="Fullname" ng-minlength="3" required>
+			</div>
+			<div class="form-group" ng-class="{'has-error': registrationForm.Name.$dirty && registrationForm.Name.$invalid, 'has-success': registrationForm.Name.$dirty && registrationForm.Name.$valid}">
+				<label class="control-label">* Username</label>
+				<input class="form-control" type="text" placeholder="" ng-model="registration.Name" name="Name" ng-minlength="3" required>
+			</div>
+			<div class="form-group" ng-class="{'has-error': registrationForm.Email.$dirty && registrationForm.Email.$invalid, 'has-success': registrationForm.Email.$dirty && registrationForm.Email.$valid}">
+				<label class="control-label">* E-Mail</label>
+				<input class="form-control" type="email" placeholder="" ng-model="registration.Email" name="Email" required>
+			</div>
+			<div class="form-group" ng-class="{'has-error': registrationForm.GravatarEmail.$dirty && registrationForm.GravatarEmail.$invalid, 'has-success': registrationForm.GravatarEmail.$dirty && registrationForm.GravatarEmail.$valid}">
+				<label class="control-label">Gravatar E-Mail</label>
+				<input class="form-control" type="email" placeholder="" ng-model="registration.GravatarEmail" name="GravatarEmail">
+			</div>
+			<div class="form-group" ng-class="{'has-error': registrationForm.Password.$dirty && registrationForm.Password.$invalid, 'has-success': registrationForm.Password.$dirty && registrationForm.Password.$valid}">
+				<label class="control-label">* Password</label>
+				<input class="form-control" type="Password" ng-model="registration.Password" name="Password" ng-minlength="6" required>
+			</div>
+			* Necessary field
+			<hr>
+			<div class="buttons">
+				<button class="btn btn-success btn-block" ng-submit ng-disabled="registrationForm.$invalid">Create new account</button>
+				<a class="btn btn-danger btn-block" href="#/login">Abort</a>
+			</div>
+		</form>
+	</div>
+</div>

@@ -13,6 +13,13 @@ app.config(function ($routeProvider) {
 			templateUrl: templatePath + 'login.html',
 			controller: "loginController"
 		})
+		.when('/registration', {
+			templateUrl: templatePath + 'registration.html',
+			controller: "registrationController"
+		})
+		.when('/registrationComplete', {
+			templateUrl: templatePath + 'registrationComplete.html'
+		})
 
 	.otherwise({
 		redirectTo: '/login'
