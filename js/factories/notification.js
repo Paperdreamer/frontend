@@ -8,22 +8,22 @@ app.factory("notificationFactory", function () {
 		},
 
 		error: function (options) {
-			options = _.extend(this.default, options);
+			options = _.defaults(options, this.default);
 			this.createNotification("danger", options);
 		},
 
 		warning: function (options) {
-			options = _.extend(this.default, options);
+			options = _.defaults(options, this.default);
 			this.createNotification("warning", options);
 		},
 
 		info: function (options) {
-			options = _.extend(this.default, options);
+			options = _.defaults(options, this.default);
 			this.createNotification("info", options);
 		},
 
 		success: function (options) {
-			options = _.extend(this.default, options);
+			options = _.defaults(options, this.default);
 			this.createNotification("success", options);
 		},
 
