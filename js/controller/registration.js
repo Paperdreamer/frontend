@@ -1,4 +1,4 @@
-app.controller("registrationController", function ($scope, $location, $http) {
+app.controller("registrationController", function ($scope, $location, $http, notificationFactory) {
 	$scope.register = function () {
 		var registrationData = {
 			Fullname: $scope.registration.Fullname,
@@ -13,10 +13,10 @@ app.controller("registrationController", function ($scope, $location, $http) {
 			$location.path("/registrationComplete");
 		}).error(function (data, status) {
 			// TODO: Notification
-			if (status == 412) {
-				alert("Username or E-Mail already taken.");
+			if (status == 409) {
+				notificationFactory.warning({content: "Username or E-Mail already taken."});
 			} else {
-				alert("Server error occured with status code: " + status + " and reponse: " + data);
+				notificationFactory.error({title: "Error:", content: "Server error occured with status code: " + status + " and reponse: " + data });
 			}
 		});	
 	};
