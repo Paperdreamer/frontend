@@ -25,9 +25,12 @@
 		<!--[if lt IE 7]>
 			<p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
-	<div class="container" ng-view>
+
+	<div class="notification container">
 	
-		<div ng-include="'partials/login.html'"></div>
+	</div>
+
+	<div class="container" ng-view>
 	
 	</div> <!-- /container -->
 		<script src="components/jquery/dist/jquery.min.js"></script>
@@ -38,17 +41,21 @@
 
 		<script src="components/angular-route/angular-route.min.js"></script>
 
+		<script src="components/restangular/dist/restangular.js"></script>
+
 		<script src="components/underscore/underscore.js"></script>
 
 		<script src="js/main.js"></script>
 
 		<!-- factories -->
 		<script src="js/factories/login.js"></script>
+		<script src="js/factories/notification.js"></script>
 
 		<!-- directives -->
 
 		<!-- controller -->
 		<script src="js/controller/login.js"></script>
+		<script src="js/controller/registration.js"></script>
 
 	</body>
 </html>

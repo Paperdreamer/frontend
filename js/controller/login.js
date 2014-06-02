@@ -1,13 +1,13 @@
-app.controller("loginController", function ($scope, $location, $http, loginFactory) {
+app.controller("loginController", function ($scope, $location, $http, loginFactory, notificationFactory) {
 	$scope.login = function () {
 		loginFactory.login($scope.login.username, $scope.login.password, function (data) {
 			if (data == "true") {
-				alert("Login successful.");
+				notificationFactory.success({title: "Login", content: "successful!"});
 			} else {
-				alert("Credentials are not correct.");
+				notificationFactory.warning({content: "Credentials are not correct."});
 			}
-		}, function () {
-			alert("A server error occured.");
+		}, function (data, status) {
+			notificationFactory.error({title: "Error:", content: "A server error occured. Status code: " + status});
 		})
 	};
 });

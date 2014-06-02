@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module("paperdreamer", ["ngRoute"]);
+var app = angular.module("paperdreamer", ["ngRoute", "restangular"]);
 
 var templatePath = "partials/",
 	restAPI = "../backend/";
@@ -12,6 +12,13 @@ app.config(function ($routeProvider) {
 		.when('/login', {
 			templateUrl: templatePath + 'login.html',
 			controller: "loginController"
+		})
+		.when('/registration', {
+			templateUrl: templatePath + 'registration.html',
+			controller: "registrationController"
+		})
+		.when('/registrationComplete', {
+			templateUrl: templatePath + 'registrationComplete.html'
 		})
 
 	.otherwise({
