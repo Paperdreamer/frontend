@@ -13,11 +13,5 @@ body {
 	@include box-shadow(5px 5px 10px 0 #4F4F4F);
 }
 
-.login {
-	margin-top: 100px;
-}
-
-.notification {
-	position: absolute;
-	z-index: 10;
-}
+@import 'login';
+@import 'notification';
