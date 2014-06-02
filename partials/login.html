@@ -15,17 +15,17 @@
 		<h3 style="margin-top: 0px;">Login</h3>
 		<hr>
 		<form role="form" novalidate name="loginForm" ng-submit="login()">
-			<div class="form-group">
-				<label>Username</label>
-				<input class="form-control" type="text" placeholder="" ng-model="login.username" required>
+			<div class="form-group" ng-class="{'has-error': loginForm.Name.$dirty && loginForm.Name.$invalid, 'has-success': loginForm.Name.$dirty && loginForm.Name.$valid}">
+				<label class="control-label">Username</label>
+				<input class="form-control" type="text" placeholder="" ng-model="login.username" ng-minlength="3" name="Name" required>
 			</div>
-			<div class="form-group">
-				<label>Password</label>
-				<input class="form-control" type="Password" ng-model="login.password" required>
+			<div class="form-group" ng-class="{'has-error': loginForm.Password.$dirty && loginForm.Password.$invalid, 'has-success': loginForm.Password.$dirty && loginForm.Password.$valid}">
+				<label class="control-label">Password</label>
+				<input class="form-control" type="Password" ng-model="login.password" ng-minlength="6" name="Password" required>
 			</div>
 			<hr>
 			<div class="buttons">
-				<button class="btn btn-success btn-block" ng-submit>Login</button>
+				<button class="btn btn-success btn-block" ng-submit ng-disabled="loginForm.$invalid">Login</button>
 				<a class="btn btn-warning btn-block" href="#/registration">New account</a>
 			</div>
 		</form>
