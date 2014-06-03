@@ -1,5 +1,5 @@
 <!-- Nav tabs -->
-<div userlist-tabs>
+<div userlist-tabs ng-show="administratorLoggedIn">
 	<ul class="nav nav-tabs">
 		<li ng-class="{active: selected == 1}"><a href="#userlist" data-toggle="tab" ng-click="selected=1">Users</a></li>
 		<li ng-class="{active: selected == 2}"><a href="#userlist" data-toggle="tab" ng-click="selected=2">Suspended Users</a></li>
@@ -25,7 +25,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="tab-pane" ng-class="{active: selected == 2}" id="suspendedUsers">
+	<div class="tab-pane" ng-class="{active: selected == 2}" ng-show="administratorLoggedIn" id="suspendedUsers">
 		<table class="table table-bordered">
 			<tr>
 				<th>Username</th>

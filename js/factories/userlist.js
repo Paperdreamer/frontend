@@ -21,5 +21,9 @@
 			}
 		});
 	};
+	object.isAdministratorLoggedIn = function(successCallback, errorCallback) {
+		$http({method: 'GET', url: restAPI + 'isAdministratorLoggedIn'
+			}).success(successCallback).error(errorCallback);
+	};
 	return object;
 });;
