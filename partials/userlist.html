@@ -20,7 +20,7 @@
 			<tr ng-repeat="user in activeUsers">
 				<td>{{user.Name}}</td>
 				<td>{{user.Fullname}}</td>
-				<td>{{user.Email}}</td>
+				<td><a href="mailto:{{user.Email}}">{{user.Email}}</a></td>
 				<td>{{user.GravatarEmail}}</td>
 			</tr>
 		</table>
@@ -37,7 +37,7 @@
 			<tr ng-repeat="user in suspendedUsers">
 				<td>{{user.Name}}</td>
 				<td>{{user.Fullname}}</td>
-				<td>{{user.Email}}</td>
+				<td><a href="mailto:{{user.Email}}">{{user.Email}}</a></td>
 				<td>{{user.GravatarEmail}}</td>
 				<td><button type="button" class="btn btn-default btn-sm" ng-click="activateUser(user.Name)">Activate User</button></td>
 			</tr>
