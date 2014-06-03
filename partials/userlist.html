@@ -1,0 +1,48 @@
+<!-- Nav tabs -->
+<div userlist-tabs>
+	<ul class="nav nav-tabs">
+		<li ng-class="{active: selected == 1}"><a href="#userlist" data-toggle="tab" ng-click="selected=1">Users</a></li>
+		<li ng-class="{active: selected == 2}"><a href="#userlist" data-toggle="tab" ng-click="selected=2">Suspended Users</a></li>
+	</ul>
+</div>
+
+<!-- Tab panes -->
+<div class="tab-content">
+	</br>
+	<div class="tab-pane" ng-class="{active: selected == 1}" id="activeUsers">
+		<table class="table table-bordered">
+			<tr>
+				<th>Username</th>
+				<th>Full Name</th>
+				<th>E-Mail</th>
+				<th>Gravatar Email</th>
+			</tr>
+			<tr ng-repeat="user in activeUsers">
+				<td>{{user.Name}}</td>
+				<td>{{user.Fullname}}</td>
+				<td>{{user.Email}}</td>
+				<td>{{user.GravatarEmail}}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="tab-pane" ng-class="{active: selected == 2}" id="suspendedUsers">
+		<table class="table table-bordered">
+			<tr>
+				<th>Username</th>
+				<th>Full Name</th>
+				<th>E-Mail</th>
+				<th>Gravatar Email</th>
+				<th>Activate</th>
+			</tr>
+			<tr ng-repeat="user in suspendedUsers">
+				<td>{{user.Name}}</td>
+				<td>{{user.Fullname}}</td>
+				<td>{{user.Email}}</td>
+				<td>{{user.GravatarEmail}}</td>
+				<td><button type="button" class="btn btn-default btn-sm" ng-click="activateUser(user.Name)">Activate User</button></td>
+			</tr>
+		</table>
+	</div>
+	</br>
+	{{error}}
+</div>
