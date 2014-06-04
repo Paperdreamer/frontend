@@ -28,7 +28,11 @@ app.controller("userlistController", function ($scope, userlistFactory) {
 			}
 		);
 	};
+	$scope.getRoleFromUser = function(user) {
+		if (user.Admin == 1)
+			return "Administrator";
+		return "User";
+	};
 	$scope.fetchUserlists();
 	$scope.fetchAdministratorStatus();
 });;
-//TODO: Put this into a factory

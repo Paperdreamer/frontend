@@ -16,12 +16,14 @@
 				<th>Full Name</th>
 				<th>E-Mail</th>
 				<th>Gravatar Email</th>
+				<th>Role</th>
 			</tr>
 			<tr ng-repeat="user in activeUsers">
 				<td>{{user.Name}}</td>
 				<td>{{user.Fullname}}</td>
 				<td><a href="mailto:{{user.Email}}">{{user.Email}}</a></td>
 				<td>{{user.GravatarEmail}}</td>
+				<td>{{getRoleFromUser(user)}}</td>
 			</tr>
 		</table>
 	</div>
@@ -32,6 +34,7 @@
 				<th>Full Name</th>
 				<th>E-Mail</th>
 				<th>Gravatar Email</th>
+				<th>Role</th>
 				<th>Activate</th>
 			</tr>
 			<tr ng-repeat="user in suspendedUsers">
@@ -39,6 +42,7 @@
 				<td>{{user.Fullname}}</td>
 				<td><a href="mailto:{{user.Email}}">{{user.Email}}</a></td>
 				<td>{{user.GravatarEmail}}</td>
+				<td>{{getRoleFromUser(user)}}</td>
 				<td><button type="button" class="btn btn-default btn-sm" ng-click="activateUser(user.Name)">Activate User</button></td>
 			</tr>
 		</table>
