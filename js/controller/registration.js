@@ -1,4 +1,4 @@
-app.controller("registrationController", function ($scope, $location, $http, notificationFactory) {
+app.controller("registrationController", function ($scope, $location, notificationFactory, registrationFactory) {
 	$scope.register = function () {
 		var registrationData = {
 			Fullname: $scope.registration.Fullname,
@@ -8,16 +8,20 @@ app.controller("registrationController", function ($scope, $location, $http, not
 			Password: $scope.registration.Password
 		};
 
-		$http.post(restAPI + "user", registrationData).success(function (data) {
-			console.log("Rückgabe", data);
-			$location.path("/registrationComplete");
-		}).error(function (data, status) {
-			// TODO: Notification
+		console.log(registrationData);
+
+		var errorCallback = function (data, status) {
 			if (status == 409) {
 				notificationFactory.warning({content: "Username or E-Mail already taken."});
 			} else {
 				notificationFactory.error({title: "Error:", content: "Server error occured with status code: " + status + " and reponse: " + data });
 			}
-		});	
+		};
+
+		var successCallback = function (data) {
+			$location.path("/registrationComplete");
+		};
+
+		registrationFactory.register(registrationData, successCallback, errorCallback);
 	};
 });;
