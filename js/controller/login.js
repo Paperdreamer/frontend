@@ -1,8 +1,16 @@
-app.controller("loginController", function ($scope, $location, $http, loginFactory, notificationFactory) {
+app.controller("loginController", function ($scope, $location, userFactory, notificationFactory) {
+	// If user is already logged in, redirect to the dashboard
+	userFactory.update(function (data) {
+		if (data != "false") {
+			$location.path("/dashboard");
+		}
+	});
+
 	$scope.login = function () {
-		loginFactory.login($scope.login.username, $scope.login.password, function (data) {
-			if (data == "true") {
+		userFactory.login($scope.login.username, $scope.login.password, function (data) {
+			if (data != "false") {
 				notificationFactory.success({title: "Login", content: "successful!"});
+				$location.path("/dashboard");
 			} else {
 				notificationFactory.warning({content: "Credentials are not correct."});
 			}
