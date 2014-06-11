@@ -25,6 +25,9 @@ app.config(function ($routeProvider, RestangularProvider) {
 		.when('/registrationComplete', {
 			templateUrl: templatePath + 'registrationComplete.html'
 		})
+		.when('/dashboard', {
+			templateUrl: templatePath + 'dashboard.html'
+		})
 
 	.otherwise({
 		redirectTo: '/login'
