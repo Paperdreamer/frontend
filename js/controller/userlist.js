@@ -1,9 +1,11 @@
-app.controller("userlistController", function ($scope, userlistFactory) {
+app.controller("userlistController", function ($scope, userlistFactory, userFactory) {
 	$scope.selected = 1;
 	$scope.administratorLoggedIn = false;
+	userFactory.update(function (data) {
+		$scope.administratorLoggedIn = userFactory.isAdmin();
+	});
 
 	$scope.activateUser = function(username) {
-		console.log("Activate User called", username);
 		userlistFactory.activateUser(username);
 		$scope.fetchUserlists();
 	};
@@ -19,20 +21,10 @@ app.controller("userlistController", function ($scope, userlistFactory) {
 				$scope.error = error;
 			});
 	};
-	$scope.fetchAdministratorStatus = function() {
-		userlistFactory.isAdministratorLoggedIn(
-			function(data) {
-				$scope.administratorLoggedIn = data;
-			}, function(data, status) {
-				notificationFactory.error({title: "Error:", content: "Server error occured with status code: " + status + " and reponse: " + data });
-			}
-		);
-	};
 	$scope.getRoleFromUser = function(user) {
 		if (user.Admin == 1)
 			return "Administrator";
 		return "User";
 	};
 	$scope.fetchUserlists();
-	$scope.fetchAdministratorStatus();
 });;

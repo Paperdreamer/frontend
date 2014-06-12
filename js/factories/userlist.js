@@ -1,7 +1,7 @@
- app.factory("userlistFactory", function (Restangular, $http, notificationFactory) {
+ app.factory("userlistFactory", function (Restangular, $http, settingsFactory, notificationFactory) {
 	var object = {};
-	var activeUsers = Restangular.all('activeUsers');
-	var suspendedUsers = Restangular.all('suspendedUsers');
+	var activeUsers = Restangular.all('users/active');
+	var suspendedUsers = Restangular.all('users/suspended');
 	object.getActiveUsers = function() {
 		return activeUsers.getList();
 	};
@@ -11,7 +11,7 @@
 	object.activateUser = function(username) {
 		console.log("Activate", username);
 		var usernameData = { Username: username };
-		$http.post(restAPI + "activateUser", usernameData).success(function (data) {
+		$http.post(settingsFactory.backendUrl + "user/activate", usernameData).success(function (data) {
 			console.log("ActivateUser Rückgabe", data);
 		}).error(function (data, status) {
 			if (status == 401) {
@@ -20,10 +20,6 @@
 				notificationFactory.error({title: "Error:", content: "Server error occured with status code: " + status + " and reponse: " + data });
 			}
 		});
-	};
-	object.isAdministratorLoggedIn = function(successCallback, errorCallback) {
-		$http({method: 'GET', url: restAPI + 'isAdministratorLoggedIn'
-			}).success(successCallback).error(errorCallback);
 	};
 	return object;
 });;
