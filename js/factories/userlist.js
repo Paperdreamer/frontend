@@ -21,5 +21,17 @@
 			}
 		});
 	};
+	
+	object.changeLevel = function(userID, level){
+		console.log("Change Level", userID);
+		var userData={UserID: userID, Level: level};
+		$http.post(settingsFactory.backendUrl+"user/change", userData).success(function(data){
+		//TODO: these error messages might not be applicable
+		console.log("ChangeUser userID Rückgabe",data);
+		}).error(function(data, status){
+			alert("userlistFactory changeLevel error");
+			notificationFactory.error({title:"Error:", content: "Server error occurred with status code:  "+status+" and response: "+data});
+		});
+	};
 	return object;
 });;

@@ -4,6 +4,10 @@ app.controller("userlistController", function ($scope, userlistFactory, userFact
 	userFactory.update(function (data) {
 		$scope.administratorLoggedIn = userFactory.isAdmin();
 	});
+	
+	$scope.changeLevel = function(userID, level){
+		userlistFactory.changeLevel(userID, level);
+	};
 
 	$scope.activateUser = function(username) {
 		userlistFactory.activateUser(username);
