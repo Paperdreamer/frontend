@@ -1,4 +1,4 @@
-app.controller("userlistController", function ($scope, userlistFactory, userFactory) {
+app.controller("userlistController", function ($scope, $rootScope, userlistFactory, userFactory) {
 	$scope.selected = 1;
 	$scope.administratorLoggedIn = false;
 	userFactory.update(function (data) {
@@ -10,6 +10,7 @@ app.controller("userlistController", function ($scope, userlistFactory, userFact
 		$scope.fetchUserlists();
 	};
 	$scope.fetchUserlists = function() {
+		$rootScope.updateHeader();
 		userlistFactory.getActiveUsers().then(function(data) {
 				$scope.activeUsers = data;
 			}, function(error) {

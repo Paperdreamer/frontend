@@ -1,10 +1,12 @@
-app.controller("loginController", function ($scope, $location, userFactory, notificationFactory) {
+app.controller("loginController", function ($scope, $location, $rootScope, userFactory, notificationFactory) {
 	// If user is already logged in, redirect to the dashboard
 	userFactory.update(function (data, status) {
 			if (status != undefined) {
-			     notificationFactory.error({title: "Error:", content: "A server error occured. Status code: " + status});
+				notificationFactory.error({title: "Error:", content: "A server error occured. Status code: " + status});
+				$rootScope.updateHeader();
 			} else if (data["ID"] != undefined) {
 				$location.path("/dashboard");
+				$rootScope.updateHeader();
 			}
 		});
 
@@ -16,8 +18,10 @@ app.controller("loginController", function ($scope, $location, userFactory, noti
 			} else {
 				notificationFactory.warning({content: "Credentials are not correct."});
 			}
+			$rootScope.updateHeader();
 		}, function (data, status) {
 			notificationFactory.error({title: "Error:", content: "A server error occured. Status code: " + status});
+			$rootScope.updateHeader();
 		})
 	};
 });
