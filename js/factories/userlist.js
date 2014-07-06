@@ -22,12 +22,12 @@
 		});
 	};
 	
-	object.changeRole = function(userID, level){
+	object.changeRole = function(userID, role) {
 		console.log("Change Role", userID);
-		var userData = {UserID: userID, Level: level};
-		$http.post(settingsFactory.backendUrl+"user/role/change", userData).success(function(data){
+		var userData = {UserID: userID, Role: role};
+		$http.put(settingsFactory.backendUrl+"user", userData).success(function(data) {
 		console.log("ChangeUser userID Rückgabe",data);
-		}).error(function(data, status){
+		}).error(function(data, status) {
 			notificationFactory.error({title:"Error:", content: "Server error occurred with status code:  "+status+" and response: "+data});
 		});
 	};
