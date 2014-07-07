@@ -5,7 +5,6 @@ app.controller("headerController", function ($scope, $rootScope, $location, user
 	
 	$scope.update = function() {
 		$scope.currentPage = $location.path();
-		console.log("New current page " + $scope.currentPage);
 		userFactory.update(function(data) {
 			if (data != undefined && data["Name"] != undefined) {
 				$scope.userdata = {
