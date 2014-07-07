@@ -26,7 +26,8 @@ app.config(function ($routeProvider, RestangularProvider) {
 			templateUrl: templatePath + 'registrationComplete.html'
 		})
 		.when('/dashboard', {
-			templateUrl: templatePath + 'dashboard.html'
+			templateUrl: templatePath + 'dashboard.html',
+			controller: "dashboardController"
 		})
 
 	.otherwise({

@@ -4,12 +4,14 @@ app.factory("userFactory", function ($http, settingsFactory, notificationFactory
 		expirationCallback: null,
 
 		login: function (nameOrMail, password, successCallback, errorCallback) {
-			$http({method: 'GET', url: settingsFactory.backendUrl + 'login', headers: {
+			$http({
+				method: 'GET', 
+				url: settingsFactory.backendUrl + 'login', 
+				headers: {
 					username: nameOrMail,
 					password: password
 				}
-			}).
-			success(_.bind(function (data, status, headers, config) {
+			}).success(_.bind(function (data, status, headers, config) {
 				if (data != "false") {
 					this.userData = data;
 				}
@@ -18,24 +20,34 @@ app.factory("userFactory", function ($http, settingsFactory, notificationFactory
 			}, this))
 			.error(errorCallback);
 		},
+		
+		logout: function(successCallback, errorCallback) {
+			$http({
+				method: 'GET', 
+				url: settingsFactory.backendUrl + 'logout'
+				
+			}).success(successCallback)
+			.error(errorCallback);
+		},
 
 		update: function (callback) {
-			$http({method: 'GET', url: settingsFactory.backendUrl + 'user'})
-				.success(_.bind(function (data) {
-					if (data != "false") {
-						this.userData = data;
-					} else {
-						this.userData = null;
+			$http({
+				method: 'GET', 
+				url: settingsFactory.backendUrl + 'user'
+			}).success(_.bind(function (data) {
+				if (data != "false") {
+					this.userData = data;
+				} else {
+					this.userData = null;
 
-						if (_.isFunction(this.expirationCallback))
-							expirationCallback();
-					}
+					if (_.isFunction(this.expirationCallback))
+						expirationCallback();
+				}
 
-					callback(data);
-				}, this))
-				.error(function (data, status) {
-					notificationFactory.error("Server error: " + status + ". Response: " + data);
-				});
+				callback(data);
+			}, this)).error(function (data, status) {
+				notificationFactory.error("Server error: " + status + ". Response: " + data);
+			});
 		},
 
 		isLoggedIn: function () {
