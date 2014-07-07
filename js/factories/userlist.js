@@ -24,8 +24,7 @@
 	
 	object.changeRole = function(userID, role) {
 		var userData = {UserID: userID, Role: role};
-		$http.put(settingsFactory.backendUrl+"user", userData).success(function(data) {
-		}).error(function(data, status) {
+		$http.put(settingsFactory.backendUrl+"user", userData).error(function(data, status) {
 			notificationFactory.error({title:"Error:", content: "Server error occurred with status code:  "+status+" and response: "+data});
 		});
 	};
