@@ -26,8 +26,13 @@ app.controller("userlistController", function ($scope, userlistFactory, userFact
 			});
 	};
 	$scope.getRoleFromUser = function(user) {
-		if (user.Admin == 1)
-			return "Administrator";
+		if (user.Admin == 1) {
+			if (user.Deleteable == 1) {
+				return "Moderator";
+			} else {
+				return "Administrator";
+			}
+		}
 		return "User";
 	};
 	$scope.fetchUserlists();
