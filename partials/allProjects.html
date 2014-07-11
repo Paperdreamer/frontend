@@ -6,6 +6,8 @@
 		<a href="#userlist" class="list-group-item active">
 			<h4 class="list-group-item-heading">{{project.Name}}</h4>
 			<p class="list-group-item-text">{{project.Description}} </p>
+			<span class="label label-success" ng-show="!{{project.Approved}}">Open</span>
+			<span class="label label-danger" ng-show="{{project.Approved}}">Closed</span>
 		</a>
 	</div>
 </div>
