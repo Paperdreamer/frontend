@@ -1,3 +1,10 @@
 <h1>Dashboard</h1>
 
-<p>The dashboard will go here</p>
+<div class="dashboard" id="belongedProjects">
+	<div class="list-group" ng-repeat="project in belongedProjects">
+		<a href="#userlist" class="list-group-item active">
+			<h4 class="list-group-item-heading">{{project.Name}}</h4>
+			<p class="list-group-item-text">{{project.Description}} </p>
+		</a>
+	</div>
+</div>
