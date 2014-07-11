@@ -23,7 +23,17 @@
 				<td>{{user.Fullname}}</td>
 				<td><a href="mailto:{{user.Email}}">{{user.Email}}</a></td>
 				<td>{{user.GravatarEmail}}</td>
-				<td>{{getRoleFromUser(user)}}</td>
+				<td ng-show="!administratorLoggedIn">{{getRoleFromUser(user)}}</td>
+				<td ng-show="administratorLoggedIn">
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{getRoleFromUser(user)}}<span class="caret"></span></button>
+							<ul class="dropdown-menu">
+ 								<li ng-click="changeRole(user.ID, 2)"><a href="#">Administrator</a></li>
+ 								<li ng-click="changeRole(user.ID, 1)"><a href="#">Moderator</a></li>
+ 								<li ng-click="changeRole(user.ID, 0)"><a href="#">User</a></li>
+ 							</ul>
+					</div>
+ 				</td>
 			</tr>
 		</table>
 	</div>
