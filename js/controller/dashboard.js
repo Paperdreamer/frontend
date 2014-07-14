@@ -1,8 +1,8 @@
-app.controller("dashboardController", function ($scope, $rootScope, dashboardFactory) {
+app.controller("dashboardController", function ($scope, $rootScope, projectsFactory) {
 	$rootScope.updateHeader();
 	$scope.fetchBelongedProjects = function() {
-		dashboardFactory.getBelongedProjects().then(function(data) {
-			$scope.belongedProjects = data;
+		projectsFactory.getBelongedProjects().then(function(data) {
+				$scope.belongedProjects = data;
 			}, function(error) {
 				$scope.error = error;
 			});
