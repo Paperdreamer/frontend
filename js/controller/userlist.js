@@ -2,14 +2,13 @@ app.controller("userlistController", function ($scope, $rootScope, userlistFacto
 	$scope.selected = 1;
 	$scope.administratorLoggedIn = false;
 	$scope.moderatorLoggedIn = false;
-	$scope.changeToWhichRoles = null;
 
 	userFactory.update(function (data) {
 		$scope.administratorLoggedIn = userFactory.isAdmin();
 		$scope.moderatorLoggedIn = userFactory.isModerator();
 	});
 	
-	$scope.changeRole = function(userID, role){
+	$scope.changeRole = function(userID, role) {
 		userlistFactory.changeRole(userID, role);
 	};
 
