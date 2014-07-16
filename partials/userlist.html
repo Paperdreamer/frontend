@@ -1,5 +1,5 @@
 <!-- Nav tabs -->
-<div userlist-tabs ng-show="administratorLoggedIn">
+<div userlist-tabs ng-show="moderatorLoggedIn">
 	<ul class="nav nav-tabs">
 		<li ng-class="{active: selected == 1}"><a href="#userlist" data-toggle="tab" ng-click="selected=1">Users</a></li>
 		<li ng-class="{active: selected == 2}"><a href="#userlist" data-toggle="tab" ng-click="selected=2">Suspended Users</a></li>
@@ -23,21 +23,21 @@
 				<td>{{user.Fullname}}</td>
 				<td><a href="mailto:{{user.Email}}">{{user.Email}}</a></td>
 				<td>{{user.GravatarEmail}}</td>
-				<td ng-show="!administratorLoggedIn">{{getRoleFromUser(user)}}</td>
-				<td ng-show="administratorLoggedIn">
-					<div class="input-group-btn">
+				<td ng-show="getDropdownForUser(user).length <= 1">{{getRoleFromUser(user)}}</td>
+				<td ng-show="moderatorLoggedIn">
+					<div class="input-group-btn" ng-show="getDropdownForUser(user).length > 1">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{getRoleFromUser(user)}}<span class="caret"></span></button>
 							<ul class="dropdown-menu">
- 								<li ng-click="changeRole(user.ID, 2)"><a href="#">Administrator</a></li>
- 								<li ng-click="changeRole(user.ID, 1)"><a href="#">Moderator</a></li>
- 								<li ng-click="changeRole(user.ID, 0)"><a href="#">User</a></li>
+ 								<li ng-click="changeRole(user.ID, 2)" ng-repeat="type in getDropdownForUser(user)"><a href="#">{{type}}</a></li>
+ 								<!--<li ng-click="changeRole(user.ID, 1)"><a href="#">Moderator</a></li>
+ 								<li ng-click="changeRole(user.ID, 0)"><a href="#">User</a></li>-->
  							</ul>
 					</div>
  				</td>
 			</tr>
 		</table>
 	</div>
-	<div class="tab-pane" ng-class="{active: selected == 2}" ng-show="administratorLoggedIn" id="suspendedUsers">
+	<div class="tab-pane" ng-class="{active: selected == 2}" ng-show="moderatorLoggedIn" id="suspendedUsers">
 		<table class="table table-bordered">
 			<tr>
 				<th>Username</th>

@@ -1,8 +1,12 @@
 app.controller("userlistController", function ($scope, $rootScope, userlistFactory, userFactory) {
 	$scope.selected = 1;
 	$scope.administratorLoggedIn = false;
+	$scope.moderatorLoggedIn = false;
+	$scope.changeToWhichRoles = null;
+
 	userFactory.update(function (data) {
 		$scope.administratorLoggedIn = userFactory.isAdmin();
+		$scope.moderatorLoggedIn = userFactory.isModerator();
 	});
 	
 	$scope.changeRole = function(userID, role){
@@ -35,6 +39,16 @@ app.controller("userlistController", function ($scope, $rootScope, userlistFacto
 			}
 		}
 		return "User";
+	};
+	$scope.getDropdownForUser = function(user) {
+		if (user.Admin == 1 && user.Deleteable == 0) {
+			return ["Administrator"];
+		}
+		if ($scope.administratorLoggedIn)
+			return ["Administrator", "Moderator", "User"];
+		if ($scope.moderatorLoggedIn)
+			return ["Moderator", "User"];
+		return ["User"];	
 	};
 	$scope.fetchUserlists();
 });;
