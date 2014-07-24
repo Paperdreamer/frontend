@@ -1,5 +1,6 @@
 app.factory('settingsFactory', function () {
 	return {
-		backendUrl: "../backend/"
+		backendUrl: "../backend/",
+		templatePath: "partials"
 	};
 });

@@ -8,8 +8,6 @@ app.controller("registrationController", function ($scope, $location, notificati
 			Password: $scope.registration.Password
 		};
 
-		console.log(registrationData);
-
 		var errorCallback = function (data, status) {
 			if (status == 409) {
 				notificationFactory.warning({content: "Username or E-Mail already taken."});
