@@ -25,7 +25,6 @@ app.factory("userFactory", function ($http, settingsFactory, notificationFactory
 			$http({
 				method: 'GET', 
 				url: settingsFactory.backendUrl + 'logout'
-				
 			}).success(successCallback)
 			.error(errorCallback);
 		},
@@ -59,6 +58,12 @@ app.factory("userFactory", function ($http, settingsFactory, notificationFactory
 		},
 
 		isAdmin: function () {
+			if (!_.isNull(this.userData)) {
+				return this.userData.isAdmin == "1" && this.userData.isDeleteable == "0";
+			}
+		},
+		
+		isModerator: function() {
 			if (!_.isNull(this.userData)) {
 				return this.userData.isAdmin == "1";
 			}
