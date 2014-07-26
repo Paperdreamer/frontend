@@ -30,7 +30,7 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
 						<li ng-class="{active: currentPage == '/dashboard'}"><a ng-href="#dashboard">Dashboard</a></li>
-						<li ng-class="{active: currentPage == '/allprojects'}"><a ng-href="#allprojects">All Projects</a></li>
+						<li ng-class="{active: currentPage == '/allProjects'}"><a ng-href="#allProjects">All Projects</a></li>
 						<li ng-class="{active: currentPage == '/userlist'}"><a ng-href="#userlist">Users</a></li>
 						<li class="dropdown">
 							<a ng-href="#{{currentPage}}" class="dropdown-toggle" data-toggle="dropdown">{{userdata.Username}}<b class="caret"></b></a>
@@ -74,6 +74,7 @@
 		<!-- factories -->
 		<script src="js/factories/user.js"></script>
 		<script src="js/factories/notification.js"></script>
+		<script src="js/factories/projects.js"></script>
 		<script src="js/factories/userlist.js"></script>
 		<script src="js/factories/settings.js"></script>
 		<script src="js/factories/registration.js"></script>
@@ -84,8 +85,9 @@
 		<script src="js/controller/header.js"></script>
 		<script src="js/controller/login.js"></script>
 		<script src="js/controller/registration.js"></script>
-		<script src="js/controller/userlist.js"></script>
 		<script src="js/controller/dashboard.js"></script>
+		<script src="js/controller/allProjects.js"></script>
+		<script src="js/controller/userlist.js"></script>
 
 	</body>
 </html>
