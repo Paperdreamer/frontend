@@ -13,7 +13,8 @@
 		"angular-route":		"latest",
 		"restangular":			"latest",
 
-		"underscore":			"latest"
+		"underscore":			"latest",
+		"fabric":				"latest"
 	},
 
 	"private": true
