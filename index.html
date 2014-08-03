@@ -55,7 +55,7 @@
 	
 	</div>
 
-	<div class="container-fluid" ng-view>
+	<div class="container" ng-view>
 	
 	</div> <!-- /container -->
 
@@ -71,10 +71,16 @@
 		<script src="components/restangular/dist/restangular.js"></script>
 
 		<script src="components/underscore/underscore.js"></script>
+		
+		<script src="components/fabric/dist/fabric.min.js"></script>
 
 		<script src="components/jquery/dist/jquery.js"></script>
 		<script src="components/jquery-ui/ui/core.js"></script>
 		<script src="components/jquery-ui/ui/widget.js"></script>
+		<script src="components/jquery-ui/ui/mouse.js"></script>
+		<script src="components/jquery-ui/ui/sortable.js"></script>
+
+		<script src="js/class/canvas.class.js"></script>
 
 		<script src="js/main.js"></script>
 
@@ -85,8 +91,10 @@
 		<script src="js/factories/userlist.js"></script>
 		<script src="js/factories/settings.js"></script>
 		<script src="js/factories/registration.js"></script>
+		<script src="js/factories/project.js"></script>
 
 		<!-- directives -->
+		<script src="js/directives/pdcanvas.js"></script>
 
 		<!-- controller -->
 		<script src="js/controller/header.js"></script>
@@ -94,6 +102,8 @@
 		<script src="js/controller/registration.js"></script>
 		<script src="js/controller/dashboard.js"></script>
 		<script src="js/controller/allProjects.js"></script>
+		<script src="js/controller/projectView.js"></script>
+		<script src="js/controller/canvasEdit.js"></script>
 		<script src="js/controller/userlist.js"></script>
 
 	</body>

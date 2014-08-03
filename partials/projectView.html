@@ -1,0 +1,73 @@
+<div class="row projectView">
+	<div class="col-md-8">
+		<!-- Canvas Panels will be here -->
+
+		<div class="row projectTitle">
+			<div class="col-md-12">
+				<h1 style="margin-top: 0; margin-bottom: 20px;">{{projectInfo.Name}}</h1>
+			</div>
+		</div>
+
+		<div class="row canvasPanels">
+			
+			<div class="col-md-4 canvas" ng-repeat="canvas in canvasList" style="min-width: 390px;"  data-id="{{canvas.ID}}">
+
+				<div class="panel panel-default" >
+					<!-- panel heading -->
+					<div class="panel-heading">
+						<h3 class="panel-title">{{canvas.Title}}</h3>
+					</div>
+					<!-- panel content -->
+					<div class="panel-body" style="height: 400px;">
+						<!-- our own canvas directive -->
+						<center><pdcanvas canvasid="canvas.ID" manipulation="false"></pdcanvas></center>
+						<hr>
+						<!-- Description and notes -->
+						<label>Description:</label>
+						<p>
+							{{canvas.Description}}
+						</p>
+						<label>Notes:</label>
+						<p>
+							{{canvas.Notes}}
+						</p>
+					</div>
+					<div class="panel-footer" style="text-align: right;">
+						<a href="#/project/{{projectInfo.ID}}/canvas/{{canvas.ID}}" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Project Menu</h3>
+			</div>
+  			<div class="panel-body">
+				<div class="row">
+					<!-- Menu Heading -->
+					<div class="col-md-12">
+						details, recruit user, delete ...
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<!-- Menu -->
+					<div class="col-md-12">
+						<p>Comentary area (can be hidden): list of topics that can be "opened" and show posts and replies (?)</p>
+						<p>post new comment with modals (bootstrap)</p>
+					</div>
+					<div class="col-md-12">
+						<hr>
+						<button class="btn btn-warning" ng-disabled="!changeState" ng-click="saveChanges()">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
