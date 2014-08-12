@@ -7,6 +7,11 @@
 			<p class="list-group-item-text">{{project.Description}} </p>
 			<span class="label label-success" ng-show="!{{project.Approved}}">Open</span>
 			<span class="label label-danger" ng-show="{{project.Approved}}">Closed</span>
+			<div class="btn-group btn-group-xs" ng-show="moderatorLoggedIn">
+				<button type="button" class="btn btn-default" ng-show="!{{project.Approved}}" ng-click="closeProject(project.ID)">Close</button>
+				<button type="button" class="btn btn-default" ng-show="{{project.Approved}}" ng-click="openProject(project.ID)">Open</button>
+				<button type="button" class="btn btn-default" ng-click="deleteProject(project.ID)">Delete</button>
+			</div>
 		</a>
 	</div>
 </div>
