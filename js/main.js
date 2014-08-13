@@ -33,6 +33,10 @@ app.config(function ($routeProvider, RestangularProvider) {
 			templateUrl: templatePath + 'allProjects.html',
 			controller: "allProjectsController"
 		})
+		.when('/createProject', {
+			templateUrl: templatePath + 'createproject.html',
+			controller: "newProjectController"
+		})
 
 	.otherwise({
 		redirectTo: '/login'
