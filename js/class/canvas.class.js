@@ -83,7 +83,7 @@ var canvasClass = function (options) {
 
 		changeIndex: function (imageID, index) {
 			var size = _.size(this.images);
-	    	this.images[imageID].moveTo(size - (index + 1));
+			this.images[imageID].moveTo(size - (index + 1));
 		},
 
 		export: function () {

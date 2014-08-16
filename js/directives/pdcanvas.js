@@ -39,8 +39,8 @@ app.directive("pdcanvas", function(settingsFactory, projectFactory, notification
 
 					_.each(scope.canvasData.Assets, function (item) {
 						item.success = function (info) {
-								canvasObjects[item.ID] = info;
-							};
+							canvasObjects[item.ID] = info;
+						};
 
 						canvas.addImage(settingsFactory.assetPath + item.Filename, item);
 					});					

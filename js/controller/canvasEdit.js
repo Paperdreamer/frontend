@@ -13,7 +13,6 @@ app.controller("canvasEditController", function ($scope, $rootScope, $routeParam
 		// success callback
 		function (data) {
 			$scope.canvasData = data;
-			console.log("set canvas data controller");
 			$scope.ready = true;
 		},
 		// error callback
@@ -26,6 +25,7 @@ app.controller("canvasEditController", function ($scope, $rootScope, $routeParam
 
 		
 		$scope.saveChanges = function () {
+			// TODO Implementation
 			$scope.changeState = false;
 		};
 
