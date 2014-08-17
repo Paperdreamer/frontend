@@ -1,9 +1,9 @@
  app.controller("newProjectController", function ($scope, $location, userlistFactory, newProjectFactory, notificationFactory, userFactory) {
 	$scope.project = { 	Name: "", 
-						Description: "", 
-						Director: "", 
-						supervisors: [ {Name: ""} ],
-						artists: [ {Name: ""} ]
+				Description: "", 
+				Director: "", 
+				supervisors: [ {Name: ""} ],
+				artists: [ {Name: ""} ]
 	};
 	
 	$scope.moderatorLoggedIn = false;
@@ -46,8 +46,6 @@
 	};
 	
 	$scope.createProject = function() {
-		console.log("Create Project");
-		
 		var errorCallback = function (data, status) {
 			if (status == 409) {
 				notificationFactory.warning({content: "Project name already exists."});
