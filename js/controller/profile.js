@@ -19,13 +19,13 @@ app.controller("profileController", function ($scope, $rootScope, $routeParams, 
 			$scope.error = error;
 		});
 	};
-	$scope.fetchBelongedProjects = function() {
-		projectsFactory.getBelongedToUserProjects(userID).then(function(data) {
-				$scope.belongedProjects = data;
+	$scope.fetchProjectsOfUser = function() {
+		projectsFactory.getProjectsOfUser(userID).then(function(data) {
+				$scope.projectsOfUser = data;
 			}, function(error) {
 				$scope.error = error;
 			});
 	};
 	$scope.fetchUser(200);
-	$scope.fetchBelongedProjects();
+	$scope.fetchProjectsOfUser();
 });;

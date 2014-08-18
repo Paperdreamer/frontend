@@ -5,10 +5,10 @@
 	object.getBelongedProjects = function() {
 		return belongedProjects.getList();
 	};
-	object.getBelongedToUserProjects = function(userID) {
+	object.getProjectsOfUser = function(userID) {
 		var address = "user/" + userID + "/projects";
-		var btuProjects = Restangular.all(address);
-		return btuProjects.getList();
+		var projectsOU = Restangular.all(address);
+		return projectsOU.getList();
 	};
 	object.getAllProjects = function() {
 		return allProjects.getList();
