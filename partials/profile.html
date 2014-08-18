@@ -1,0 +1,44 @@
+<style>
+	p {
+		font-size: 150%;
+		margin: 3px;
+	}
+	td {
+		padding-left: 40px;
+	}
+	#prlist {
+		padding-left: 20px;
+	}
+</style>
+<h1>Profile</h1>
+<table border="0">
+	<tr>
+		<td>
+			<p><img id="image" ng-src="{{gravatar}}"/></p>
+			<p>
+				<a href="#/user/{{user.ID}}/editProfile">
+					<button type="button" class="btn btn-default btn-lg">
+						Edit Profile
+					</button>
+				</a></p>
+		</td>
+		<td id="infos">
+		<div>
+			<p>Username         : {{user.Name}}</p>
+			<p>Full Name		: {{user.Fullname}}</p>
+			<p>Email			: {{user.Email}}</p>
+			<p>Gravatar Email	: {{user.GravatarEmail}}</p>
+			<p>Role				: {{role}}</p></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		</td>
+		<td>
+			<h2>My Projects</h2>
+			<div id="belongedProjects" ng-repeat="project in belongedProjects">
+				<p>{{project.Name}}</p>
+			</div>
+		</td>
+	</tr>
+</table>

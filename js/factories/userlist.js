@@ -28,5 +28,10 @@
 			notificationFactory.error({title:"Error:", content: "Server error occurred with status code:  "+status+" and response: "+data});
 		});
 	};
+	object.getUser = function(userID) {
+		var address = "user/" + userID;
+		var user = Restangular.one(address);
+		return user.get();
+	};
 	return object;
 });;

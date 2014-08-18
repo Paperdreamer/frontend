@@ -1,0 +1,40 @@
+<style>
+	#image:hover{
+		opacity: 0.6;
+	}
+	p {
+		font-size: 150%;
+	}
+</style>
+<h1>Edit Profile</h1>
+<p>
+	<div id="pic">
+		<a href="http://www.gravatar.com">
+			<img id="image" ng-src="{{getGravatar('m.onur_vural@hotmail.com', 200)}}"/>
+		</a>
+	</div>
+</p>
+<p>
+	nickname
+	<button type="button" class="btn btn-default btn-xs">
+		Change
+	</button>
+</p>
+<p>
+	Name Surname
+	<button type="button" class="btn btn-default btn-xs">
+		Change
+	</button>
+</p>
+<p>
+	email@myemail.com
+	<button type="button" class="btn btn-default btn-xs">
+		Change
+	</button>
+</p>
+<p>
+	gravatar@myemail.com
+	<button type="button" class="btn btn-default btn-xs">
+		Change
+	</button>
+</p>
