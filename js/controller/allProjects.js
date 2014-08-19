@@ -7,6 +7,19 @@ app.controller("allProjectsController", function ($scope, $rootScope, projectsFa
 	$scope.fetchAllProjects = function() {
 		projectsFactory.getAllProjects().then(function(data) {
 				$scope.allProjects = data;
+				projectsFactory.getBelongedProjects().then(function(dat) {
+					var belongedProjects = dat;
+					var i, j;
+					for(i = 0; i < $scope.allProjects.length; i++) {
+						for(j = 0; j < belongedProjects.length; j++) {
+							if($scope.allProjects[i]["ID"] == belongedProjects[j]["ID"]) {
+								$scope.allProjects[i]["Role"] = belongedProjects[j]["Role"];
+							}
+						}
+					}
+				}, function(error) {
+					$scope.error = error;
+				});
 			}, function(error) {
 				$scope.error = error;
 			});
