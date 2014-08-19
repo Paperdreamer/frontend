@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module("paperdreamer", ["ngRoute", "restangular"]);
+var app = angular.module("paperdreamer", ["ngRoute", "restangular", "ui.bootstrap"]);
 
 var templatePath = "partials/",
 	restAPI = "../backend/";
