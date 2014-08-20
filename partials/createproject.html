@@ -1,0 +1,50 @@
+<div class="row project">
+	<div class="box col-md-offset-4 col-xs-offset-2 col-md-4 col-xs-8">
+		<h3 style="margin-top: 0px;">Create new project:</h3>
+		<hr>
+		<form role="form" novalidate name="registrationForm">
+			<div class="form-group" ng-class="{'has-error': registrationForm.Name.$dirty && registrationForm.Name.$invalid, 'has-success': registrationForm.Name.$dirty && registrationForm.Name.$valid}">
+				<label class="control-label">* Name</label>
+				<input class="form-control" type="text" ng-model="project.Name" name="Name" ng-minlength="3" required>
+			</div>
+			<div class="form-group" ng-class="{'has-success': registrationForm.Description.$dirty && registrationForm.Description.$valid}">
+				<label class="control-label">Description</label>
+				<input class="form-control" type="text" ng-model="project.Description" name="Description">
+			</div>
+			<div class="form-group" ng-class="{'has-error': !isUsername(project.Director), 'has-success': isUsername(project.Director)}"><!-- TODO Live validation if username exists in system?! -->
+				<label class="control-label">* Director:</label>
+				<input class="form-control" type="text" ng-model="project.Director" ng-readonly="!moderatorLoggedIn" name="Director" required>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Supervisors:</label>
+				<div class="input-group" ng-repeat="supervisor in project.supervisors track by $index" ng-class="{'has-error': !isUsername(supervisor.Name), 'has-success': isUsername(supervisor.Name)}">
+					<input type="text" class="form-control" ng-model="supervisor.Name" name="Supervisor">
+					<span class="input-group-btn">
+						<button class="btn btn-danger" class="form-control" ng-click="removeSupervisor(supervisor)">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button><!-- Make this an icon!! -->
+					</span>
+				</div>
+				<button class="btn form-control" ng-click="addSupervisor()">Add Supervisor...</button>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Artists:</label>
+				<div class="input-group" ng-repeat="artist in project.artists track by $index" ng-class="{'has-error': !isUsername(artist.Name), 'has-success': isUsername(artist.Name)}">
+					<input class="form-control" type="text" ng-model="artist.Name" name="Artist">
+					<span class="input-group-btn">
+						<button class="btn btn-danger" class="form-control" ng-click="removeArtist(artist)">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button><!-- Make this an icon!! -->
+					</span>
+				</div>
+				<button class="btn form-control" ng-click="addArtist()">Add Artist...</button>
+			</div>
+			* Necessary field
+			<hr>
+			<div class="buttons">
+				<button class="btn btn-success btn-block" type="submit" ng-click="createProject()" ng-disabled="registrationForm.$invalid || !isUsername(project.Director)">Create project</button>
+				<a class="btn btn-danger btn-block" href="#/dashboard">Abort</a>
+			</div>
+		</form>
+	</div>
+</div>
