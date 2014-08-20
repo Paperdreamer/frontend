@@ -14,7 +14,7 @@ app.controller("userlistController", function ($scope, $rootScope, userlistFacto
 			role = 2;
 		else if (textRole == "Moderator")
 			role = 1;
-		userlistFactory.changeRole(userID, role);
+		userlistFactory.updateUser(userID, "Role", role);
 		$scope.fetchUserlists();
 	};
 

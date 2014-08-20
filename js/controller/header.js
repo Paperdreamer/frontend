@@ -9,7 +9,8 @@ app.controller("headerController", function ($scope, $rootScope, $location, user
 			if (data != undefined && data["Name"] != undefined) {
 				$scope.userdata = {
 					Username: data["Name"],
-					Fullname: data["Fullname"]
+					Fullname: data["Fullname"],
+					ID		: data["ID"]
 				};
 			} else {
 				$scope.userdata = null;

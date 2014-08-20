@@ -1,44 +1,53 @@
 <style>
-	p {
+	.form-horizontal {
 		font-size: 150%;
-		margin: 3px;
-	}
-	td {
-		padding-left: 40px;
-	}
-	#prlist {
-		padding-left: 20px;
 	}
 </style>
 <h1>Profile</h1>
-<table border="0">
-	<tr>
-		<td>
-			<p><img id="image" ng-src="{{gravatar}}"/></p>
-			<p>
-				<a href="#/user/{{user.ID}}/editProfile">
-					<button type="button" class="btn btn-default btn-lg">
-						Edit Profile
-					</button>
-				</a></p>
-		</td>
-		<td id="infos">
-		<div>
-			<p>Username         : {{user.Name}}</p>
-			<p>Full Name		: {{user.Fullname}}</p>
-			<p>Email			: {{user.Email}}</p>
-			<p>Gravatar Email	: {{user.GravatarEmail}}</p>
-			<p>Role				: {{role}}</p></div>
-		</td>
-	</tr>
-	<tr>
-		<td>
-		</td>
-		<td>
-			<h2>My Projects</h2>
-			<div id="projectsOfUser" ng-repeat="project in projectsOfUser">
-				<p>{{project.Name}}</p>
+<div style="display: inline-block; vertical-align: top;">
+	<p><img id="image" ng-src="{{gravatar}}"/></p>
+	<p>
+		<a href="#/user/{{user.ID}}/editProfile">
+			<button type="button" class="btn btn-default btn-lg" ng-show="moderatorLoggedIn || user.ID == currentUser.ID">
+				Edit Profile
+			</button>
+		</a></p>
+</div>
+<div style="display: inline-block;">
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label class="col-sm-4 control-label">Username</label>
+			<div class="col-sm-8">
+				<p class="form-control-static">{{user.Name}}</p>
 			</div>
-		</td>
-	</tr>
-</table>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label">Full Name</label>
+			<div class="col-sm-8">
+				<p class="form-control-static">{{user.Fullname}}</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label">Email</label>
+			<div class="col-sm-8">
+				<p class="form-control-static">{{user.Email}}</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label">Gravatar Email</label>
+			<div class="col-sm-8">
+				<p class="form-control-static">{{user.GravatarEmail}}</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label">Role</label>
+			<div class="col-sm-8">
+				<p class="form-control-static">{{role}}</p>
+			</div>
+		</div>
+	</form>
+</div>
+<h2>My Projects</h2>
+<ul class="list-group" ng-repeat="project in projectsOfUser">
+  <li class="list-group-item">{{project.Name}}</li>
+</ul>

@@ -19,8 +19,8 @@
 				<th>Role</th>
 			</tr>
 			<tr ng-repeat="user in activeUsers">
-				<td>{{user.Name}}</td>
-				<td>{{user.Fullname}}</td>
+				<td><a ng-href="#user/{{user.ID}}">{{user.Name}}</a></td>
+				<td><a ng-href="#user/{{user.ID}}">{{user.Fullname}}</a></td>
 				<td><a href="mailto:{{user.Email}}">{{user.Email}}</a></td>
 				<td>{{user.GravatarEmail}}</td>
 				<td>

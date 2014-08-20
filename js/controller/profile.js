@@ -1,6 +1,12 @@
-app.controller("profileController", function ($scope, $rootScope, $routeParams, userlistFactory, projectsFactory) {
+app.controller("profileController", function ($scope, $rootScope, $routeParams, userlistFactory, projectsFactory, userFactory) {
 	var userID = $routeParams.userID;
 	$rootScope.updateHeader();
+	$scope.moderatorLoggedIn = false;
+	$scope.currentUser = null;
+	userFactory.update(function(data) {
+		$scope.moderatorLoggedIn = userFactory.isModerator();
+		$scope.currentUser = userFactory.getUserData();
+	});
 	$scope.fetchUser = function(size) {
 		userlistFactory.getUser(userID).then(function(data) {
 			$scope.user = data;

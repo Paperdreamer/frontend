@@ -1,40 +1,73 @@
 <style>
-	#image:hover{
-		opacity: 0.6;
-	}
 	p {
 		font-size: 150%;
+		margin: 3px;
 	}
 </style>
-<h1>Edit Profile</h1>
-<p>
-	<div id="pic">
-		<a href="http://www.gravatar.com">
-			<img id="image" ng-src="{{getGravatar('m.onur_vural@hotmail.com', 200)}}"/>
-		</a>
+<h1>Profile</h1>
+
+<a href="http://www.gravatar.com"><img id="image" ng-src="{{gravatar}}"/></a>
+<p><a href="http://www.gravatar.com">Change Picture</a></p>
+<form class="form-horizontal" name="UserForm" role="form" novalidate>
+	<div class="form-group">
+		<label for="username" class="col-sm-2 control-label">Username</label>
+		<div class="col-lg-6">
+			<div class="input-group">
+				<input type="text" class="form-control" value="{{user.Name}}" readonly>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" disabled>Change</button>
+				</span>
+			</div>
+		</div>
 	</div>
-</p>
-<p>
-	nickname
-	<button type="button" class="btn btn-default btn-xs">
-		Change
-	</button>
-</p>
-<p>
-	Name Surname
-	<button type="button" class="btn btn-default btn-xs">
-		Change
-	</button>
-</p>
-<p>
-	email@myemail.com
-	<button type="button" class="btn btn-default btn-xs">
-		Change
-	</button>
-</p>
-<p>
-	gravatar@myemail.com
-	<button type="button" class="btn btn-default btn-xs">
-		Change
-	</button>
-</p>
+	<div class="form-group">
+		<label for="fullName" class="col-sm-2 control-label">Full Name</label>
+		<div class="col-lg-6">
+			<div class="input-group">
+				<input type="text" class="form-control" value="{{user.Fullname}}" readonly>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" disabled>Change</button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" ng-class="{'has-success': readOnly['email'] == false && UserForm.Email.$dirty && UserForm.Email.$valid, 'has-error': readOnly['email'] == false && UserForm.Email.$dirty && UserForm.Email.$invalid}">
+		<label for="email" class="col-sm-2 control-label">Email</label>
+		<div class="col-lg-6">
+			<div class="input-group">
+				<input type="text" class="form-control" name="Email" ng-model="user.Email" ng-readonly="readOnly['email']">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="toggleButton('email')" ng-show="changeVer['email']">Change</button>
+				</span>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="toggleButton('email'); updateUser(user.ID, 'Email', user.Email)" ng-hide="changeVer['email']">Save</button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" ng-class="{'has-success': readOnly['gravatar'] == false && UserForm.GravatarEmail.$dirty && UserForm.GravatarEmail.$valid, 'has-error': readOnly['gravatar'] == false && UserForm.GravatarEmail.$dirty && UserForm.GravatarEmail.$invalid}">
+		<label for="gravatarEmail" class="col-sm-2 control-label">Gravatar Email</label>
+		<div class="col-lg-6">
+			<div class="input-group">
+				<input type="text" class="form-control" name="GravatarEmail" ng-model="user.GravatarEmail" ng-readonly="readOnly['gravatar']">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="toggleButton('gravatar')" ng-show="changeVer['gravatar']">Change</button>
+				</span>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="toggleButton('gravatar'); updateUser(user.ID, 'GravatarEmail', user.GravatarEmail)" ng-hide="changeVer['gravatar']">Save</button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="role" class="col-sm-2 control-label">Role</label>
+		<div class="col-lg-6">
+			<div class="input-group">
+				<input type="text" class="form-control" value="{{role}}" readonly>
+				<span class="input-group-btn">
+					<a href="#userlist"><button class="btn btn-default" type="button" ng-disabled="!moderatorLoggedIn">Change</button></a>
+				</span>
+			</div>
+		</div>
+	</div>
+</form>
