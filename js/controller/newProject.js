@@ -19,7 +19,6 @@
 				angular.forEach(data, function(item){
 					$scope.users.push(item.Name);
 				});
-				console.log($scope.users);
 			}, function(error) {
 				$scope.error = error;
 			});
