@@ -11,14 +11,14 @@
 				<label class="control-label">Description</label>
 				<input class="form-control" type="text" ng-model="project.Description" name="Description">
 			</div>
-			<div class="form-group" ng-class="{'has-error': !isUsername(project.Director), 'has-success': isUsername(project.Director)}"><!-- TODO Live validation if username exists in system?! -->
+			<div class="form-group" ng-class="{'has-error': !isUsername(project.Director), 'has-success': isUsername(project.Director)}">
 				<label class="control-label">* Director:</label>
-				<input class="form-control" type="text" ng-model="project.Director" ng-readonly="!moderatorLoggedIn" name="Director" required>
+				<input class="form-control" type="text" ng-model="project.Director" ng-readonly="!moderatorLoggedIn" name="Director" autocomplete="off" required placeholder="Username" typeahead="user for user in users | filter:$viewValue | limitTo:5">
 			</div>
 			<div class="form-group">
 				<label class="control-label">Supervisors:</label>
 				<div class="input-group" ng-repeat="supervisor in project.supervisors track by $index" ng-class="{'has-error': !isUsername(supervisor.Name), 'has-success': isUsername(supervisor.Name)}">
-					<input type="text" class="form-control" ng-model="supervisor.Name" name="Supervisor">
+					<input type="text" class="form-control" ng-model="supervisor.Name" name="Supervisor" autocomplete="off" placeholder="Username" typeahead="user for user in users | filter:$viewValue | limitTo:5">
 					<span class="input-group-btn">
 						<button class="btn btn-danger" class="form-control" ng-click="removeSupervisor(supervisor)">
 							<span class="glyphicon glyphicon-remove"></span>
@@ -30,7 +30,7 @@
 			<div class="form-group">
 				<label class="control-label">Artists:</label>
 				<div class="input-group" ng-repeat="artist in project.artists track by $index" ng-class="{'has-error': !isUsername(artist.Name), 'has-success': isUsername(artist.Name)}">
-					<input class="form-control" type="text" ng-model="artist.Name" name="Artist">
+					<input class="form-control" type="text" ng-model="artist.Name" name="Artist" autocomplete="off" placeholder="Username" typeahead="user for user in users | filter:$viewValue | limitTo:5">
 					<span class="input-group-btn">
 						<button class="btn btn-danger" class="form-control" ng-click="removeArtist(artist)">
 							<span class="glyphicon glyphicon-remove"></span>

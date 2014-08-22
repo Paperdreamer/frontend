@@ -15,7 +15,10 @@
 	
 	$scope.fetchUserlists = function() {
 		userlistFactory.getActiveUsers().then(function(data) {
-				$scope.users = data;
+				$scope.users = [];
+				angular.forEach(data, function(item){
+					$scope.users.push(item.Name);
+				});
 			}, function(error) {
 				$scope.error = error;
 			});
@@ -26,7 +29,7 @@
 		if ($scope.users == undefined)
 			return false;
 		var filtered  = $scope.users.filter(function(element, index, array) {
-				return element.Name == name;
+				return element == name;
 			}
 		);
 		return (typeof filtered !== 'undefined' && filtered.length > 0);
