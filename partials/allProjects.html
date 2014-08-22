@@ -10,7 +10,7 @@
 			<div class="btn-group btn-group-xs" ng-show="moderatorLoggedIn || project.Role == 'Director'">
 				<button type="button" class="btn btn-default" ng-show="!{{project.Approved}}" ng-click="closeProject(project.ID)">Close</button>
 				<button type="button" class="btn btn-default" ng-show="{{project.Approved}}" ng-click="openProject(project.ID)">Open</button>
-				<button type="button" class="btn btn-default" ng-hide="!moderatorLoggedIn" ng-click="deleteProject(project.ID)">Delete</button>
+				<button type="button" class="btn btn-default" ng-show="moderatorLoggedIn" ng-click="deleteProject(project.ID)">Delete</button>
 			</div>
 		</a>
 	</div>
