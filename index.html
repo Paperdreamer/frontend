@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="components/font-awesome/css/font-awesome.css">
 		<link rel="stylesheet" href="components/angular/angular-csp.css">
+		<link rel="stylesheet" href="components/jquery-ui/themes/smoothness/jquery-ui.min.css">
 		<link rel="stylesheet" href="css/main.css">
 
 		<script src="components/modernizr/modernizr.js"></script>
@@ -57,6 +58,8 @@
 	<div class="container" ng-view>
 	
 	</div> <!-- /container -->
+
+		<!-- dependencies -->
 		<script src="components/jquery/dist/jquery.min.js"></script>
 
 		<script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -69,7 +72,17 @@
 
 		<script src="components/underscore/underscore.js"></script>
 		
+		<script src="components/fabric/dist/fabric.min.js"></script>
+
 		<script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+		<script src="components/jquery/dist/jquery.js"></script>
+		<script src="components/jquery-ui/ui/core.js"></script>
+		<script src="components/jquery-ui/ui/widget.js"></script>
+		<script src="components/jquery-ui/ui/mouse.js"></script>
+		<script src="components/jquery-ui/ui/sortable.js"></script>
+
+		<script src="js/class/canvas.class.js"></script>
 
 		<script src="js/main.js"></script>
 
@@ -80,9 +93,11 @@
 		<script src="js/factories/userlist.js"></script>
 		<script src="js/factories/settings.js"></script>
 		<script src="js/factories/registration.js"></script>
+		<script src="js/factories/project.js"></script>
 		<script src="js/factories/newProject.js"></script>
 
 		<!-- directives -->
+		<script src="js/directives/pdcanvas.js"></script>
 
 		<!-- controller -->
 		<script src="js/controller/header.js"></script>
@@ -90,6 +105,8 @@
 		<script src="js/controller/registration.js"></script>
 		<script src="js/controller/dashboard.js"></script>
 		<script src="js/controller/allProjects.js"></script>
+		<script src="js/controller/projectView.js"></script>
+		<script src="js/controller/canvasEdit.js"></script>
 		<script src="js/controller/userlist.js"></script>
 		<script src="js/controller/newProject.js"></script>
 

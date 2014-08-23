@@ -37,6 +37,14 @@ app.config(function ($routeProvider, RestangularProvider) {
 			templateUrl: templatePath + 'createproject.html',
 			controller: "newProjectController"
 		})
+		.when('/project/:projectID', {
+			templateUrl: templatePath + 'projectView.html',
+			controller: "projectViewController"
+		})
+		.when('/project/:projectID/canvas/:canvasID', {
+			templateUrl: templatePath + 'canvasEdit.html',
+			controller: "canvasEditController"
+		})
 
 	.otherwise({
 		redirectTo: '/login'

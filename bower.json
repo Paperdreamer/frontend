@@ -7,13 +7,15 @@
 		"font-awesome": 		"latest",
 		"modernizr": 			"latest",
 		"jquery": 				"latest",
+		"jquery-ui":			"latest",
 
 		"angular": 				"latest",
 		"angular-route":		"latest",
 		"angular-bootstrap":	"latest",
 		"restangular":			"latest",
 
-		"underscore":			"latest"
+		"underscore":			"latest",
+		"fabric":				"latest"
 	},
 
 	"private": true
