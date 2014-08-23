@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module("paperdreamer", ["ngRoute", "restangular"]);
+var app = angular.module("paperdreamer", ["ngRoute", "restangular", "ui.bootstrap"]);
 
 var templatePath = "partials/",
 	restAPI = "../backend/";
@@ -32,6 +32,10 @@ app.config(function ($routeProvider, RestangularProvider) {
 		.when('/allProjects', {
 			templateUrl: templatePath + 'allProjects.html',
 			controller: "allProjectsController"
+		})
+		.when('/createProject', {
+			templateUrl: templatePath + 'createproject.html',
+			controller: "newProjectController"
 		})
 		.when('/project/:projectID', {
 			templateUrl: templatePath + 'projectView.html',

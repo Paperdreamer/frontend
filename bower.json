@@ -11,6 +11,7 @@
 
 		"angular": 				"latest",
 		"angular-route":		"latest",
+		"angular-bootstrap":	"latest",
 		"restangular":			"latest",
 
 		"underscore":			"latest",

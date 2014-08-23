@@ -23,15 +23,17 @@
 				<td>{{user.Fullname}}</td>
 				<td><a href="mailto:{{user.Email}}">{{user.Email}}</a></td>
 				<td>{{user.GravatarEmail}}</td>
-				<td ng-show="getDropdownForUser(user).length <= 1">{{getRoleFromUser(user)}}</td>
-				<td ng-show="moderatorLoggedIn">
+				<td>
+					<div ng-show="getDropdownForUser(user).length <= 1">{{getRoleFromUser(user)}}</div>
 					<div class="input-group-btn" ng-show="getDropdownForUser(user).length > 1">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{getRoleFromUser(user)}}<span class="caret"></span></button>
-							<ul class="dropdown-menu">
- 								<li ng-click="changeRole(user.ID, 2)" ng-repeat="type in getDropdownForUser(user)"><a href="#">{{type}}</a></li>
+						<li class="dropdown">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{getRoleFromUser(user)}}<span class="caret"></span></button>
+							<ul class="dropdown-menu" role="menu">
+ 								<li ng-click="changeRole(user.ID, type)" ng-repeat="type in getDropdownForUser(user)"><a href="#userlist">{{type}}</a></li>
  								<!--<li ng-click="changeRole(user.ID, 1)"><a href="#">Moderator</a></li>
  								<li ng-click="changeRole(user.ID, 0)"><a href="#">User</a></li>-->
  							</ul>
+ 						</li>
 					</div>
  				</td>
 			</tr>

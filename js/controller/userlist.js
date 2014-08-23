@@ -8,8 +8,14 @@ app.controller("userlistController", function ($scope, $rootScope, userlistFacto
 		$scope.moderatorLoggedIn = userFactory.isModerator();
 	});
 	
-	$scope.changeRole = function(userID, role) {
+	$scope.changeRole = function(userID, textRole) {
+		var role = 0;
+		if (textRole == "Administrator")
+			role = 2;
+		else if (textRole == "Moderator")
+			role = 1;
 		userlistFactory.changeRole(userID, role);
+		$scope.fetchUserlists();
 	};
 
 	$scope.activateUser = function(username) {
