@@ -35,6 +35,7 @@
 		<label for="email" class="col-sm-2 control-label">Email</label>
 		<div class="col-lg-6">
 			<div class="input-group">
+			<!-- TODO: make existing emails invalid-->
 				<input type="text" class="form-control" name="Email" ng-model="user.Email" ng-readonly="readOnly['email']">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button" ng-click="toggleButton('email')" ng-show="changeVer['email']">Change</button>
@@ -69,5 +70,31 @@
 				</span>
 			</div>
 		</div>
+	</div>
+	<div class="form-group" ng-show="!passChangeable">
+		<button class="btn btn-default" type="button" ng-click="togglePassword()">Change Password</button>
+	</div>
+</form>
+<form role="form" novalidate name="passForm" ng-submit="updateUser(user.ID, 'Password', newPassword)" ng-show="passChangeable">
+	<div class="form-group" ng-class="{'has-error': passForm.Current.$dirty && passForm.Current.$invalid, 'has-success': passForm.Current.$dirty && passForm.Current.$valid}">
+		<label class="control-label">Current Password</label>
+		<!-- TODO: implement ng-model-->
+		<input class="form-control" type="password"	ng-model="currentPassword" ng-minlength="6" name="Current" required>
+	</div>
+	<div class="form-group" ng-class="{'has-error': passForm.New.$dirty && passForm.New.$invalid, 'has-success': passForm.New.$dirty && passForm.New.$valid}">
+		<label class="control-label">New Password</label>
+		<!-- TODO: implement ng-model-->
+		<input class="form-control" type="Password" ng-model="newPassword" ng-minlength="6" name="New" required>
+	</div>
+	<div class="form-group" ng-class="{'has-error': passForm.New2.$dirty && passForm.New2.$invalid, 'has-success': passForm.New2.$dirty && passForm.New2.$valid}">
+		<label class="control-label">New Password Again</label>
+		<!-- TODO: implement ng-model-->
+		<input class="form-control" type="Password" ng-model="newPassword2" ng-minlength="6" name="New2" required>
+	</div>
+	<hr>
+	<div class="buttons">
+		<button class="btn btn-success btn-block" ng-submit ng-disabled="passForm.$invalid">Change</button>
+		<!-- TODO: implement forgotPassword-->
+		<a class="btn btn-warning btn-block" href="#/forgotPassword">Forgot Your Password?</a>
 	</div>
 </form>
