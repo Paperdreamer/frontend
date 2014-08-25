@@ -1,7 +1,4 @@
 app.controller("projectViewController", function ($scope, $rootScope, $routeParams, projectFactory, notificationFactory) {
-
-	$scope.projectInfo = projectInfo;
-
 	// If this is true, the order was changed -> enable the save button.
 	$scope.changeState = false;
 
@@ -11,6 +8,7 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 		// success callback
 		function (data) {
 			var canvasList = data.Panels;
+			$scope.projectInfo = data;
 
 			// Sort the canvasList first by the position indices.
 			canvasList = _.sortBy(canvasList, function (item) {
