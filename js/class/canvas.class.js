@@ -8,6 +8,7 @@ var canvasClass = function (options) {
 		targetID: "",
 		width: 400,
 		height: 400,
+		scale: 1,
 		backgroundImageURL: "",
 		manipulation: true,			// Is it allowed to manipulate the elements in the canvas ?
 
@@ -56,6 +57,8 @@ var canvasClass = function (options) {
 
 				this.canvas.add(imageObject);
 
+				this.zoomObject(imageObject);
+
 				this.images[ID] = imageObject;
 				this._reorder();
 
@@ -70,6 +73,60 @@ var canvasClass = function (options) {
 			}, this));
 		},
 
+		resetZoom: function () {
+			// Invert the scale
+			this.zoom(1 / this.scale);
+		},
+
+		zoomObject: function (object, scale) {
+			if (_.isUndefined(scale))
+				var scale = this.scale;
+
+			// Remind previous scales and coordinates
+			var scaleX = object.scaleX,
+				scaleY = object.scaleY,
+				left = object.left,
+				top = object.top;
+			
+			// Compute new scales and coordinates
+			var tempScaleX = scaleX * scale,
+				tempScaleY = scaleY * scale,
+				tempLeft = left * scale,
+				tempTop = top * scale;
+			
+			// Set new scales and coordinates
+			object.scaleX = tempScaleX;
+			object.scaleY = tempScaleY;
+			object.left = tempLeft;
+			object.top = tempTop;
+			
+			// Apply the newly setted coordinates
+			object.setCoords();
+
+			// Rerender the canvas for the new properties to take effect
+			this.canvas.renderAll();
+		},
+
+		zoom: function (scale) {
+			// Compute new scale
+			this.scale = this.scale * scale;
+
+			// Compute new dimensions
+			this.canvas.setHeight(this.canvas.getHeight() * scale);
+			this.canvas.setWidth(this.canvas.getWidth() * scale);
+			
+			// Gather all objects
+			var objects = this.canvas.getObjects();
+
+			// Iterate over the objects and apply the new scale
+			_.each(objects, function (object) {
+				this.zoomObject(object, scale);
+			}, this);				
+
+			// Rerender the canvas for the new properties to take effect (note: this can't be removed since an empty canvas still needs to be rerendered after resizing)
+			this.canvas.renderAll();
+		},
+
 		imageAutoScale: function (imageObject) {
 			// Evaluate a scale so the image does does not prevent editing the canvas
 			var newScale = _.min( [ ( (this.width / 2) / imageObject.width ), ( (this.height / 2) / imageObject.height ) ] );
@@ -77,8 +134,9 @@ var canvasClass = function (options) {
 		},
 
 		setBackgroundImage: function (imgURL) {
-			this.backgroundImageURL = imgURL;
-			this.canvas.setBackgroundImage(imgURL, this.canvas.renderAll.bind(this.canvas));
+			// TODO
+			//this.backgroundImageURL = imgURL;
+			//this.canvas.setBackgroundImage(imgURL, this.canvas.renderAll.bind(this.canvas));
 		},
 
 		changeIndex: function (imageID, index) {
