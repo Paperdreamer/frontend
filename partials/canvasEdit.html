@@ -1,9 +1,9 @@
 <div class="row canvasEdit">
-	<div class="col-md-8 col-md-offset-2">
+	<div class="col-md-12">
 		<!-- Canvas Panel will be here -->
 		<div class="row canvasPanels">
 			
-			<div class="col-md-4 col-md-offset-2 canvas" style="min-width: 390px;"  data-id="{{canvasData.ID}}" ng-if="ready">
+			<div class="col-md-6 canvas" style="min-width: 390px;" data-id="{{canvasData.ID}}" ng-if="ready">
 
 				<div class="panel panel-default">
 					<!-- panel heading -->
@@ -13,7 +13,7 @@
 					<!-- panel content -->
 					<div class="panel-body">
 						<!-- our own canvas directive -->
-						<center><pdcanvas canvasid="canvasData.ID" manipulation="true"></pdcanvas></center>
+						<center><pdcanvas canvasid="canvasData.ID" scale="1.5" manipulation="true"></pdcanvas></center>
 						<hr>
 						<!-- Description and notes -->
 						<form role="form">

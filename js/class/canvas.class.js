@@ -8,6 +8,7 @@ var canvasClass = function (options) {
 		targetID: "",
 		width: 400,
 		height: 400,
+		scale: 1,
 		backgroundImageURL: "",
 		manipulation: true,			// Is it allowed to manipulate the elements in the canvas ?
 
@@ -56,6 +57,8 @@ var canvasClass = function (options) {
 
 				this.canvas.add(imageObject);
 
+				this.zoomObject(imageObject);
+
 				this.images[ID] = imageObject;
 				this._reorder();
 
@@ -70,6 +73,49 @@ var canvasClass = function (options) {
 			}, this));
 		},
 
+		resetZoom: function () {
+			this.zoom(1 / this.scale);
+		},
+
+		zoomObject: function (object, scale) {
+			if (_.isUndefined(scale))
+				var scale = this.scale;
+
+			var scaleX = object.scaleX;
+			var scaleY = object.scaleY;
+			var left = object.left;
+			var top = object.top;
+			
+			var tempScaleX = scaleX * scale;
+			var tempScaleY = scaleY * scale;
+			var tempLeft = left * scale;
+			var tempTop = top * scale;
+			
+			object.scaleX = tempScaleX;
+			object.scaleY = tempScaleY;
+			object.left = tempLeft;
+			object.top = tempTop;
+			
+			object.setCoords();
+
+			this.canvas.renderAll();
+		},
+
+		zoom: function (scale) {
+			this.scale = this.scale * scale;
+			
+			this.canvas.setHeight(this.canvas.getHeight() * scale);
+			this.canvas.setWidth(this.canvas.getWidth() * scale);
+			 var objects = this.canvas.getObjects();
+
+				_.each(objects, function (object) {
+					this.zoomObject(object, scale);
+				}, this);
+				
+		
+			this.canvas.renderAll();
+		},
+
 		imageAutoScale: function (imageObject) {
 			// Evaluate a scale so the image does does not prevent editing the canvas
 			var newScale = _.min( [ ( (this.width / 2) / imageObject.width ), ( (this.height / 2) / imageObject.height ) ] );
@@ -77,8 +123,9 @@ var canvasClass = function (options) {
 		},
 
 		setBackgroundImage: function (imgURL) {
-			this.backgroundImageURL = imgURL;
-			this.canvas.setBackgroundImage(imgURL, this.canvas.renderAll.bind(this.canvas));
+			// TODO
+			//this.backgroundImageURL = imgURL;
+			//this.canvas.setBackgroundImage(imgURL, this.canvas.renderAll.bind(this.canvas));
 		},
 
 		changeIndex: function (imageID, index) {

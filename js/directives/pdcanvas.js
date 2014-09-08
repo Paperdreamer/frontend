@@ -28,6 +28,12 @@ app.directive("pdcanvas", function(settingsFactory, projectFactory, notification
 						content: "The canvasData variable could not be assigned."
 					});
 				} else {
+					if (!_.isUndefined(attributes.scale)) {
+						var scale = parseFloat(attributes.scale);
+					} else {
+						var scale = 1;
+					}
+
 					var canvas = new canvasClass({
 						targetID: scope.canvasID,
 						width: 330,
@@ -37,13 +43,16 @@ app.directive("pdcanvas", function(settingsFactory, projectFactory, notification
 					}),
 					canvasObjects = {};
 
+					// Apply scale
+					canvas.zoom(scale);
+
 					_.each(scope.canvasData.Assets, function (item) {
 						item.success = function (info) {
 							canvasObjects[item.ID] = info;
 						};
 
 						canvas.addImage(settingsFactory.assetPath + item.Filename, item);
-					});					
+					});			
 				}
 
 			});	
