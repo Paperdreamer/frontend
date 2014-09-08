@@ -74,6 +74,7 @@ var canvasClass = function (options) {
 		},
 
 		resetZoom: function () {
+			// Invert the scale
 			this.zoom(1 / this.scale);
 		},
 
@@ -81,38 +82,48 @@ var canvasClass = function (options) {
 			if (_.isUndefined(scale))
 				var scale = this.scale;
 
-			var scaleX = object.scaleX;
-			var scaleY = object.scaleY;
-			var left = object.left;
-			var top = object.top;
+			// Remind previous scales and coordinates
+			var scaleX = object.scaleX,
+				scaleY = object.scaleY,
+				left = object.left,
+				top = object.top;
 			
-			var tempScaleX = scaleX * scale;
-			var tempScaleY = scaleY * scale;
-			var tempLeft = left * scale;
-			var tempTop = top * scale;
+			// Compute new scales and coordinates
+			var tempScaleX = scaleX * scale,
+				tempScaleY = scaleY * scale,
+				tempLeft = left * scale,
+				tempTop = top * scale;
 			
+			// Set new scales and coordinates
 			object.scaleX = tempScaleX;
 			object.scaleY = tempScaleY;
 			object.left = tempLeft;
 			object.top = tempTop;
 			
+			// Apply the newly setted coordinates
 			object.setCoords();
 
+			// Rerender the canvas for the new properties to take effect
 			this.canvas.renderAll();
 		},
 
 		zoom: function (scale) {
+			// Compute new scale
 			this.scale = this.scale * scale;
-			
+
+			// Compute new dimensions
 			this.canvas.setHeight(this.canvas.getHeight() * scale);
 			this.canvas.setWidth(this.canvas.getWidth() * scale);
-			 var objects = this.canvas.getObjects();
+			
+			// Gather all objects
+			var objects = this.canvas.getObjects();
 
-				_.each(objects, function (object) {
-					this.zoomObject(object, scale);
-				}, this);
-				
-		
+			// Iterate over the objects and apply the new scale
+			_.each(objects, function (object) {
+				this.zoomObject(object, scale);
+			}, this);				
+
+			// Rerender the canvas for the new properties to take effect (note: this can't be removed since an empty canvas still needs to be rerendered after resizing)
 			this.canvas.renderAll();
 		},
 
