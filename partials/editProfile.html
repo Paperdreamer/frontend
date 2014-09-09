@@ -71,8 +71,10 @@
 			</div>
 		</div>
 	</div>
-	<div class="form-group" ng-show="!passChangeable">
-		<button class="btn btn-default" type="button" ng-click="togglePassword()">Change Password</button>
+	<div class="form-group">
+		<button class="btn btn-default" type="button" ng-click="togglePassword(); toggleButton('password')" ng-show="changeVer['password']">Change Password</button>
+		<button class="btn btn-default" type="button" ng-click="togglePassword(); toggleButton('password')" ng-show="!changeVer['password']">Cancel</button>
+		
 	</div>
 </form>
 <form role="form" novalidate name="passForm" ng-submit="updateUser(user.ID, 'Password', newPassword)" ng-show="passChangeable">

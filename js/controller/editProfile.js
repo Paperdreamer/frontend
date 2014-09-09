@@ -3,7 +3,7 @@ app.controller("editProfileController", function ($scope, $rootScope, $routePara
 	$rootScope.updateHeader();
 	$scope.moderatorLoggedIn = false;
 	$scope.readOnly = {username: true, fullName: true, email: true, gravatar: true, role: true};
-	$scope.changeVer = {username: true, fullName: true, email: true, gravatar: true, role: true};
+	$scope.changeVer = {username: true, fullName: true, email: true, gravatar: true, role: true, password: true};
 	$scope.passChangeable = false;
 	userFactory.update(function(data) {
 		$scope.moderatorLoggedIn = userFactory.isModerator();
@@ -38,7 +38,7 @@ app.controller("editProfileController", function ($scope, $rootScope, $routePara
 			if($scope.user.PasswordHash == MD5($scope.currentPassword)) {
 				if($scope.newPassword == $scope.newPassword2) {
 					userlistFactory.updateUser(userID, action, MD5(newValue));
-					$scope.togglePassword();
+					$scope.passChangeable = true;
 				} else {
 					notificationFactory.warning({content: "Entered passwords don't match!"});
 				}
