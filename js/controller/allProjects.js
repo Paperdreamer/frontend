@@ -36,5 +36,12 @@ app.controller("allProjectsController", function ($scope, $rootScope, projectsFa
 		projectsFactory.deleteProject(projectID);
 		$scope.fetchAllProjects();
 	};
+	$scope.projectClick = function(project, event) {
+		if(event.target.toString() == "[object HTMLButtonElement]") {
+			return;
+		} else {
+			$location.path("/project/" + project.ID);
+		}
+	};
 	$scope.fetchAllProjects();
 });;

@@ -1,4 +1,4 @@
-app.controller("dashboardController", function ($scope, $rootScope, projectsFactory, userFactory) {
+app.controller("dashboardController", function ($scope, $rootScope, projectsFactory, userFactory, $location) {
 	$rootScope.updateHeader();
 	$scope.moderatorLoggedIn = false;
 	userFactory.update(function(data) {
@@ -22,6 +22,13 @@ app.controller("dashboardController", function ($scope, $rootScope, projectsFact
 	$scope.deleteProject = function(projectID) {
 		projectsFactory.deleteProject(projectID);
 		$scope.fetchBelongedProjects();
+	};
+	$scope.projectClick = function(project, event) {
+		if(event.target.toString() == "[object HTMLButtonElement]") {
+			return;
+		} else {
+			$location.path("/project/" + project.ID);
+		}
 	};
 	$scope.fetchBelongedProjects();
 });
