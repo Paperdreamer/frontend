@@ -19,6 +19,14 @@ app.factory('projectFactory', function ($http, settingsFactory) {
 				.error(errorCallback);
 		},
 
+		removeCanvas: function (projectID, canvasID, successCallback, errorCallback) {
+			$http.delete(settingsFactory.backendUrl + "project/" + projectID + "/canvas/" + canvasID)
+				.success(_.bind(function (data, status, headers, config) {
+					successCallback(data, status, headers, config);
+				}, this))
+				.error(errorCallback);
+		},
+
 		reset: function () {
 			this.data = {};
 		},
