@@ -2,6 +2,22 @@
 	.form-horizontal {
 		font-size: 150%;
 	}
+	#infos label {
+		width: 30%;
+		text-align: right;
+		float: left;
+		margin-right: 20px;
+	}
+	#infos .datas {
+		position: relative;
+		width: 60%;
+		text-align: left;
+		float: left;
+		top: 6px;
+	}
+	.list-group-item {
+		width: 50%;
+	}
 </style>
 <h1>Profile</h1>
 <div style="display: inline-block; vertical-align: top;">
@@ -13,41 +29,31 @@
 			</button>
 		</a></p>
 </div>
-<div style="display: inline-block;">
+<div id="infos" style="display: inline-block; position: relative; left: 30px; width: 600px;">
 	<form class="form-horizontal" role="form">
 		<div class="form-group">
-			<label class="col-sm-4 control-label">Username</label>
-			<div class="col-sm-8">
-				<p class="form-control-static">{{user.Name}}</p>
-			</div>
+			<label class="control-label">Username</label>
+			<div class="datas">{{user.Name}}</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-4 control-label">Full Name</label>
-			<div class="col-sm-8">
-				<p class="form-control-static">{{user.Fullname}}</p>
-			</div>
+			<label class="control-label">Full Name</label>
+			<div class="datas">{{user.Fullname}}</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-4 control-label">Email</label>
-			<div class="col-sm-8">
-				<p class="form-control-static">{{user.Email}}</p>
-			</div>
+			<label class="control-label">Email</label>
+			<div class="datas">{{user.Email}}</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-4 control-label">Gravatar Email</label>
-			<div class="col-sm-8">
-				<p class="form-control-static">{{user.GravatarEmail}}</p>
-			</div>
+			<label class="control-label">Gravatar Email</label>
+			<div class="datas">{{user.GravatarEmail}}</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-4 control-label">Role</label>
-			<div class="col-sm-8">
-				<p class="form-control-static">{{role}}</p>
-			</div>
+			<label class="control-label">Role</label>
+			<div class="datas">{{role}}</div>
 		</div>
 	</form>
 </div>
 <h2>My Projects</h2>
 <ul class="list-group" ng-repeat="project in projectsOfUser">
-  <li class="list-group-item">{{project.Name}}</li>
+  <a href="#project/{{project.ID}}"> <li class="list-group-item">{{project.Name}}</li></a>
 </ul>
