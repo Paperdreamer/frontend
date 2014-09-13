@@ -2,6 +2,23 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 	// If this is true, the order was changed -> enable the save button.
 	$scope.changeState = false;
 
+	$scope.removeCanvas = function (canvasID) {
+		var projectID = $routeParams.projectID,
+
+		successCallback = function (data) {
+			// Remove the panel / canvas from the list
+			$scope.canvasList = _.filter($scope.canvasList, function (item) {
+				return item.ID != canvasID;
+			});
+		},
+
+		errorCallback = function () {
+			notificationFactory.error("The chosen canvas could not be deleted due to server issues.");
+		};
+
+		projectFactory.removeCanvas(projectID, canvasID, successCallback, errorCallback);
+	};
+
 
 	projectFactory.get(
 		$routeParams.projectID,
