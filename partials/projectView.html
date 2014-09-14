@@ -70,5 +70,35 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">New canvas</h3>
+			</div>
+  			<div class="panel-body">
+				<form role="form">
+					<div class="form-group">
+						<label>Title</label>
+						<input type="text" class="form-control" ng-model="newCanvas.title">
+					</div>
+					<div class="form-group">
+						<label>Description</label>
+						<textarea class="form-control" rows="2" ng-model="newCanvas.description"></textarea>
+					</div>
+					<div class="form-group">
+						<label>Notes</label>
+						<textarea class="form-control" rows="2" ng-model="newCanvas.notes"></textarea>
+					</div>
+					<div class="form-group">
+						<button class="btn btn-success pull-right" style="margin-left: 5px;" ng-click="createCanvas(newCanvas.title, newCanvas.description, newCanvas.notes); newCanvas.title = ''; newCanvas.description = ''; newCanvas.notes = ''">
+							<span class="fa fa-plus"></span> Create
+						</button>
+						<button class="btn btn-danger pull-right" ng-click="newCanvas.title = ''; newCanvas.description = ''; newCanvas.notes = ''">
+							<span class="fa fa-recycle"></span> Reset
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>
