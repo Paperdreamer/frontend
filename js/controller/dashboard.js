@@ -12,23 +12,22 @@ app.controller("dashboardController", function ($scope, $rootScope, projectsFact
 			});
 	};
 	$scope.closeProject = function(projectID) {
+		event.stopPropagation();
 		projectsFactory.closeProject(projectID);
 		$scope.fetchBelongedProjects();
 	};
 	$scope.openProject = function(projectID) {
+		event.stopPropagation();
 		projectsFactory.openProject(projectID);
 		$scope.fetchBelongedProjects();
 	};
 	$scope.deleteProject = function(projectID) {
+		event.stopPropagation();
 		projectsFactory.deleteProject(projectID);
 		$scope.fetchBelongedProjects();
 	};
 	$scope.projectClick = function(project, event) {
-		if(event.target.toString() == "[object HTMLButtonElement]") {
-			return;
-		} else {
-			$location.path("/project/" + project.ID);
-		}
+		$location.path("/project/" + project.ID);
 	};
 	$scope.fetchBelongedProjects();
 });
