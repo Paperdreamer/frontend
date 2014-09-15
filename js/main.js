@@ -45,6 +45,14 @@ app.config(function ($routeProvider, RestangularProvider) {
 			templateUrl: templatePath + 'canvasEdit.html',
 			controller: "canvasEditController"
 		})
+		.when('/user/:userID', {
+			templateUrl: templatePath + 'profile.html',
+			controller: "profileController"
+		})
+		.when('/user/:userID/editProfile', {
+			templateUrl: templatePath + 'editProfile.html',
+			controller: "editProfileController"
+		})
 
 	.otherwise({
 		redirectTo: '/login'

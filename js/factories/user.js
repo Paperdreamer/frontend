@@ -67,6 +67,12 @@ app.factory("userFactory", function ($http, settingsFactory, notificationFactory
 			if (!_.isNull(this.userData)) {
 				return this.userData.isAdmin == "1";
 			}
+		},
+		
+		getUserData: function() {
+			if(!_.isNull(this.userData)) {
+				return this.userData;
+			}
 		}
 	}
 });

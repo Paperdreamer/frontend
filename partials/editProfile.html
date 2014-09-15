@@ -1,0 +1,83 @@
+<div class="editProfileView">
+	<h1>My Profile</h1>
+	<div>
+		<a href="http://www.gravatar.com"><img id="image" ng-src="{{gravatar}}"/></a>
+		<p><a href="http://www.gravatar.com">Change Picture</a></p>
+	</div>
+	<form id="userForm" name="UserForm" role="form" novalidate>
+		<div class="form-group">
+			<label class="control-label">Username</label>
+			<div class="input-group">
+				<input type="text" class="form-control" value="{{user.Name}}" readonly>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" disabled>Change</button>
+				</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Full Name</label>
+			<div class="input-group">
+				<input type="text" class="form-control" value="{{user.Fullname}}" readonly>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" disabled>Change</button>
+				</span>
+			</div>		
+		</div>
+		<div class="form-group" ng-class="{'has-success': readOnly['email'] == false && UserForm.Email.$dirty && UserForm.Email.$valid, 'has-error': readOnly['email'] == false && UserForm.Email.$dirty && UserForm.Email.$invalid}">
+			<label class="control-label">Email</label>		
+			<div class="input-group">
+			<!-- TODO: make existing emails invalid-->
+				<input type="text" class="form-control" name="Email" ng-model="user.Email" ng-readonly="readOnly['email']">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="toggleButton('email')" ng-show="changeVer['email']">Change</button>
+				</span>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="toggleButton('email'); updateUser(user.ID, 'Email', user.Email)" ng-hide="changeVer['email']">Save</button>
+				</span>
+			</div>		
+		</div>
+		<div class="form-group" ng-class="{'has-success': readOnly['gravatar'] == false && UserForm.GravatarEmail.$dirty && UserForm.GravatarEmail.$valid, 'has-error': readOnly['gravatar'] == false && UserForm.GravatarEmail.$dirty && UserForm.GravatarEmail.$invalid}">
+			<label class="control-label">Gravatar Email</label>		
+			<div class="input-group">
+				<input type="text" class="form-control" name="GravatarEmail" ng-model="user.GravatarEmail" ng-readonly="readOnly['gravatar']">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="toggleButton('gravatar')" ng-show="changeVer['gravatar']">Change</button>
+				</span>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="toggleButton('gravatar'); updateUser(user.ID, 'GravatarEmail', user.GravatarEmail)" ng-hide="changeVer['gravatar']">Save</button>
+				</span>
+			</div>		
+		</div>
+		<div class="form-group">
+			<label class="control-label">Role</label>
+			<div class="input-group">
+				<input type="text" class="form-control" value="{{role}}" readonly>
+				<span class="input-group-btn">
+					<a href="#userlist"><button class="btn btn-default" type="button" ng-disabled="!moderatorLoggedIn">Change</button></a>
+				</span>
+			</div>		
+		</div>
+		<div class="form-group">
+			<button class="btn btn-default" type="button" ng-click="togglePassword(); toggleButton('password')" ng-show="changeVer['password']">Change Password</button>
+			<button class="btn btn-default" type="button" ng-click="togglePassword(); toggleButton('password')" ng-show="!changeVer['password']">Cancel</button>
+		</div>
+	</form>
+	<form role="form" novalidate name="passForm" style="width: 50%" ng-submit="updateUser(user.ID, 'Password', newPassword)" ng-show="passChangeable">
+		<div class="form-group" ng-class="{'has-error': passForm.Current.$dirty && passForm.Current.$invalid, 'has-success': passForm.Current.$dirty && passForm.Current.$valid}">
+			<label class="control-label">Current Password</label>
+			<input class="form-control" type="password"	ng-model="currentPassword" ng-minlength="6" name="Current" required>
+		</div>
+		<div class="form-group" ng-class="{'has-error': passForm.New.$dirty && passForm.New.$invalid, 'has-success': passForm.New.$dirty && passForm.New.$valid}">
+			<label class="control-label">New Password</label>
+			<input class="form-control" type="Password" ng-model="newPassword" ng-minlength="6" name="New" required>
+		</div>
+		<div class="form-group" ng-class="{'has-error': passForm.New2.$dirty && passForm.New2.$invalid, 'has-success': passForm.New2.$dirty && passForm.New2.$valid}">
+			<label class="control-label">New Password Again</label>
+			<input class="form-control" type="Password" ng-model="newPassword2" ng-minlength="6" name="New2" required>
+		</div>
+		<hr>
+		<div class="buttons">
+			<button class="btn btn-success btn-block" ng-submit ng-disabled="passForm.$invalid">Change</button>
+		</div>
+	</form>
+</div>

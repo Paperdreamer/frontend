@@ -1,0 +1,21 @@
+.profileView {
+	.form-horizontal {
+		font-size: 150%;
+	}
+	#infos label {
+		width: 30%;
+		text-align: right;
+		float: left;
+		margin-right: 20px;
+	}
+	#infos .datas {
+		position: relative;
+		width: 60%;
+		text-align: left;
+		float: left;
+		top: 6px;
+	}
+	.list-group-item {
+		width: 50%;
+	}
+}
