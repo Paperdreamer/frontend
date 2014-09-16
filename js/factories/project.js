@@ -41,6 +41,10 @@ app.factory('projectFactory', function ($http, settingsFactory) {
 				.error(errorCallback); 
 		},
 
+		saveProject: function (projectID, projectData, successCallback, errorCallback) {
+			$http.put(settingsFactory.backendUrl + "project/" + projectID, projectData);
+		},
+
 		reset: function () {
 			this.data = {};
 		},

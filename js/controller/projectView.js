@@ -29,6 +29,7 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 
 	$scope.saveChanges = function () {
 		// TODO Implementation
+		projectFactory.saveProject($routeParams.projectID, $scope.projectInfo);
 		$scope.changeState = false;
 	};
 
@@ -56,7 +57,7 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 							// Update position indeces
 							_.find(canvasList, function (item) {
 								return item.ID == $(element).data("id");
-							}).index = index;
+							}).PositionIndex = index;
 						});
 
 						$scope.changeState = true;
