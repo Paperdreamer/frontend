@@ -27,6 +27,24 @@ app.factory('projectFactory', function ($http, settingsFactory) {
 				.error(errorCallback);
 		},
 
+		createCanvas: function (projectID, positionIndex, title, description, notes, successCallback, errorCallback) {
+			var data = {
+				ProjectID: projectID,
+				PositionIndex: positionIndex,
+				Title: title,
+				Description: description,
+				Notes: notes
+			};
+
+			$http.post(settingsFactory.backendUrl + "project/" + projectID + "/canvas", data)
+				.success(successCallback)
+				.error(errorCallback); 
+		},
+
+		saveProject: function (projectID, projectData, successCallback, errorCallback) {
+			$http.put(settingsFactory.backendUrl + "project/" + projectID, projectData);
+		},
+
 		reset: function () {
 			this.data = {};
 		},
