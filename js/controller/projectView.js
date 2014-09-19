@@ -1,6 +1,15 @@
-app.controller("projectViewController", function ($scope, $rootScope, $routeParams, projectFactory, notificationFactory) {
+app.controller("projectViewController", function ($scope, $rootScope, $routeParams, $route, projectFactory, notificationFactory, userFactory, userlistFactory) {
 	// If this is true, the order was changed -> enable the save button.
 	$scope.changeState = false;
+	
+	userlistFactory.getActiveUsers().then(function(data) {
+			$scope.allUsers = [];
+			angular.forEach(data, function(item){
+				$scope.allUsers.push(item.Name);
+			});
+		}, function(error) {
+			$scope.error = error;
+		});
 
 
 	projectFactory.get(
@@ -41,12 +50,84 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 				content: data
 			});
 		});
+	
+	projectFactory.getUsers(
+		$routeParams.projectID,
+		// success callback
+		function (data) {
+			$scope.users = data;
+			$scope.artists = new Array();
+			$scope.supervisors = new Array();
+			$scope.users.forEach(function(element) {
+				if (element.Role == "Supervisor")
+					$scope.supervisors.push({Name: element.Name});
+				else if (element.Role == "Artist")
+					$scope.artists.push({Name: element.Name});
+				else if (element.Role == "Director")
+					$scope.director = element.Name;
+			});
+		},
+		// error callback
+		function (data, status) {
+			notificationFactory.error({
+				title: "An error occured contacting the Server, code " + status,
+				content: data
+			});
+		});
+	
+	
+	userFactory.update(function (data) {
+		$scope.moderatorLoggedIn = userFactory.isModerator() || Director.UserID == data["ID"];
+	});
 
 		
-		$scope.saveChanges = function () {
-			// TODO Implementation
-			$scope.changeState = false;
+	$scope.saveChanges = function () {
+		$scope.changeState = false;
+		$scope.editusers = false;
+		$scope.editname = false;
+		$scope.editdescription = false;
+		
+		var updatedProject = { 	Name: $scope.projectInfo.Name, 
+				Description: $scope.projectInfo.Description, 
+				Director: $scope.director, 
+				supervisors: $scope.supervisors,
+				artists: $scope.artists
+		};		
+		var errorCallback = function (data, status) {
+			notificationFactory.error({title: "Error:", content: "Server error occured with status code: " + status + " and reponse: " + data });
 		};
 
+		var successCallback = function (data) {
+			$route.reload();
+		};
+		projectFactory.updateProject($scope.projectInfo.ID, updatedProject, successCallback, errorCallback);
+	};
+	
+	
+	$scope.isUsername = function(name) {
+		if ($scope.users == undefined)
+			return false;
+		var filtered  = $scope.allUsers.filter(function(element, index, array) {
+				return element == name;
+			}
+		);
+		return (typeof filtered !== 'undefined' && filtered.length > 0);
+	};
 
+	$scope.addSupervisor = function() {
+		$scope.supervisors.push({Name: ""});
+		$scope.changeState = true;
+	};
+	$scope.removeSupervisor = function(supervisor) {
+		$scope.supervisors.splice($scope.supervisors.indexOf(supervisor), 1);
+		$scope.changeState = true;
+	};
+	$scope.addArtist = function() {
+		$scope.artists.push({Name: ""});
+		$scope.changeState = true;
+	};
+	$scope.removeArtist = function(artist) {
+		$scope.artists.splice($scope.artists.indexOf(artist), 1);
+		$scope.changeState = true;
+	};
 });
