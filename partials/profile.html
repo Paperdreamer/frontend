@@ -1,0 +1,40 @@
+<div class="profileView">
+	<h1>Profile</h1>
+	<div style="display: inline-block; vertical-align: top;">
+		<p><img id="image" ng-src="{{gravatar}}"/></p>
+		<p>
+			<a href="#/user/{{user.ID}}/editProfile">
+				<button type="button" class="btn btn-default btn-lg" ng-show="moderatorLoggedIn || user.ID == currentUser.ID">
+					Edit Profile
+				</button>
+			</a></p>
+	</div>
+	<div id="infos" style="display: inline-block; position: relative; left: 30px; width: 600px;">
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label class="control-label">Username</label>
+				<div class="datas">{{user.Name}}</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Full Name</label>
+				<div class="datas">{{user.Fullname}}</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Email</label>
+				<div class="datas">{{user.Email}}</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Gravatar Email</label>
+				<div class="datas">{{user.GravatarEmail}}</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Role</label>
+				<div class="datas">{{role}}</div>
+			</div>
+		</form>
+	</div>
+	<h2>My Projects</h2>
+	<ul class="list-group" ng-repeat="project in projectsOfUser">
+	  <a href="#project/{{project.ID}}"> <li class="list-group-item">{{project.Name}}</li></a>
+	</ul>
+</div>

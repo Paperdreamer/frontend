@@ -35,12 +35,33 @@ app.factory('projectFactory', function ($http, settingsFactory) {
 			$http.get(settingsFactory.backendUrl + "project/" + projectID + "/users")
 				.success(_.bind(function (data, status, headers, config) {
 					this.data = data;
-
 					successCallback(data, status, headers, config);
 				}, this))
 				.error(errorCallback);
 		},
-		
+
+		removeCanvas: function (projectID, canvasID, successCallback, errorCallback) {
+			$http.delete(settingsFactory.backendUrl + "project/" + projectID + "/canvas/" + canvasID)
+				.success(_.bind(function (data, status, headers, config) {
+					successCallback(data, status, headers, config);
+				}, this))
+				.error(errorCallback);
+		},
+
+		createCanvas: function (projectID, positionIndex, title, description, notes, successCallback, errorCallback) {
+			var data = {
+				ProjectID: projectID,
+				PositionIndex: positionIndex,
+				Title: title,
+				Description: description,
+				Notes: notes
+			};
+
+			$http.post(settingsFactory.backendUrl + "project/" + projectID + "/canvas", data)
+				.success(successCallback)
+				.error(errorCallback); 
+		},
+
 		reset: function () {
 			this.data = {};
 		},

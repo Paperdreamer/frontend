@@ -1,4 +1,4 @@
-app.controller("userlistController", function ($scope, $rootScope, userlistFactory, userFactory) {
+app.controller("userlistController", function ($scope, $rootScope, userlistFactory, userFactory, hashService) {
 	$scope.selected = 1;
 	$scope.administratorLoggedIn = false;
 	$scope.moderatorLoggedIn = false;
@@ -8,13 +8,17 @@ app.controller("userlistController", function ($scope, $rootScope, userlistFacto
 		$scope.moderatorLoggedIn = userFactory.isModerator();
 	});
 	
+	$scope.gravatarToPP = function(grmail, size) {
+		return "http://www.gravatar.com/avatar/" + hashService.MD5(grmail) + ".jpg?s=" + size;
+	};
+	
 	$scope.changeRole = function(userID, textRole) {
 		var role = 0;
 		if (textRole == "Administrator")
 			role = 2;
 		else if (textRole == "Moderator")
 			role = 1;
-		userlistFactory.changeRole(userID, role);
+		userlistFactory.updateUser(userID, "Role", role);
 		$scope.fetchUserlists();
 	};
 

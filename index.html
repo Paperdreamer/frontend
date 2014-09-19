@@ -34,9 +34,9 @@
 						<li ng-class="{active: currentPage == '/allProjects'}"><a ng-href="#allProjects">All Projects</a></li>
 						<li ng-class="{active: currentPage == '/userlist'}"><a ng-href="#userlist">Users</a></li>
 						<li class="dropdown">
-							<a ng-href="#{{currentPage}}" class="dropdown-toggle" data-toggle="dropdown">{{userdata.Username}}<b class="caret"></b></a>
+							<a id="dropdownPicture" ng-href="#{{currentPage}}" class="dropdown-toggle" data-toggle="dropdown"><img ng-src="{{gravatarToPP(userdata.GravatarEmail, 40)}}"><b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a ng-href="#user/{{userdata.Username}}">Edit Profile</a>
+								<li><a ng-href="#user/{{userdata.ID}}">My Profile</a>
 								<li class="divider"></li>
 								<li><a ng-href="#login" ng-click="logout()">Logout</a></li>
 							</ul>
@@ -94,6 +94,7 @@
 		<script src="js/factories/settings.js"></script>
 		<script src="js/factories/registration.js"></script>
 		<script src="js/factories/project.js"></script>
+		<script src="js/factories/hashService.js"></script>
 
 		<!-- directives -->
 		<script src="js/directives/pdcanvas.js"></script>
@@ -108,6 +109,8 @@
 		<script src="js/controller/canvasEdit.js"></script>
 		<script src="js/controller/userlist.js"></script>
 		<script src="js/controller/newProject.js"></script>
+		<script src="js/controller/profile.js"></script>
+		<script src="js/controller/editProfile.js"></script>
 
 	</body>
 </html>
