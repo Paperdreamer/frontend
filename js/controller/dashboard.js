@@ -12,17 +12,17 @@ app.controller("dashboardController", function ($scope, $rootScope, projectsFact
 				$scope.error = error;
 			});
 	};
-	$scope.closeProject = function(projectID) {
+	$scope.closeProject = function(event, projectID) {
 		event.stopPropagation();
 		projectsFactory.closeProject(projectID);
 		$scope.fetchBelongedProjects();
 	};
-	$scope.openProject = function(projectID) {
+	$scope.openProject = function(event, projectID) {
 		event.stopPropagation();
 		projectsFactory.openProject(projectID);
 		$scope.fetchBelongedProjects();
 	};
-	$scope.deleteProject = function(projectID) {
+	$scope.deleteProject = function(event, projectID) {
 		event.stopPropagation();
 		projectsFactory.deleteProject(projectID);
 		$scope.fetchBelongedProjects();
