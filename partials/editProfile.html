@@ -60,6 +60,7 @@
 		<div class="form-group">
 			<button class="btn btn-default" type="button" ng-click="togglePassword(); toggleButton('password')" ng-show="changeVer['password']">Change Password</button>
 			<button class="btn btn-default" type="button" ng-click="togglePassword(); toggleButton('password')" ng-show="!changeVer['password']">Cancel</button>
+			<a href="#user/{{user.ID}}"><button class="btn btn-default" type="button">Back To Profile</button></a>
 		</div>
 	</form>
 	<form role="form" novalidate name="passForm" style="width: 50%" ng-submit="updateUser(user.ID, 'Password', newPassword)" ng-show="passChangeable">

@@ -13,7 +13,7 @@ app.controller("allProjectsController", function ($scope, $rootScope, projectsFa
 					for(i = 0; i < $scope.allProjects.length; i++) {
 						for(j = 0; j < belongedProjects.length; j++) {
 							if($scope.allProjects[i]["ID"] == belongedProjects[j]["ID"]) {
-								$scope.allProjects[i]["Role"] = belongedProjects[j]["Role"];
+								$scope.allProjects[i] = _.extend({Role: belongedProjects[j]["Role"]}, $scope.allProjects[i]);
 							}
 						}
 					}
