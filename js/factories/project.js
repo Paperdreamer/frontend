@@ -41,6 +41,13 @@ app.factory('projectFactory', function ($http, settingsFactory) {
 				.error(errorCallback); 
 		},
 
+		saveCanvas: function (projectID, canvasID, canvasData, successCallback, errorCallback) {
+			$http
+				.put(settingsFactory.backendUrl + "project/" + projectID + "/canvas/" + canvasID, canvasData)
+				.success(successCallback)
+				.error(errorCallback);
+		},
+
 		saveProject: function (projectID, projectData, successCallback, errorCallback) {
 			$http.put(settingsFactory.backendUrl + "project/" + projectID, projectData);
 		},
