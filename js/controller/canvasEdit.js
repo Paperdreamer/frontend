@@ -23,9 +23,38 @@ app.controller("canvasEditController", function ($scope, $rootScope, $routeParam
 			});
 		});
 
-		
 		$scope.saveChanges = function () {
 			// TODO Implementation
+			$scope.oldZoom = $scope.canvas.scale;
+			$scope.canvas.resetZoom();
+			var objects = $scope.canvas.canvas._objects,
+				newAssets = [];
+
+			_.each(objects, function (object) {
+				var objectData = {
+					ID: object.dbProperties.AssetToCanvasID,
+					top: object.top,
+					left: object.left,
+					flipX: object.flipX,
+					flipY: object.flipY,
+					scaleX: object.scaleX,
+					scaleY: object.scaleY,
+					angle: object.angle,
+					Index: object.index
+				};
+
+				newAssets.push(objectData);
+			});
+
+			$scope.canvasData.Assets = newAssets;
+
+			projectFactory.saveCanvas($routeParams.projectID, $routeParams.canvasID, $scope.canvasData, function () {
+				notificationFactory.success("Canvas saved successfully");
+				$scope.canvas.zoom($scope.oldZoom);
+			}, function (data, status) {
+				notificationFactory.error("An error occured contacting the server. Error Code: " + status);
+			});
+
 			$scope.changeState = false;
 		};
 

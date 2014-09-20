@@ -59,6 +59,9 @@ var canvasClass = function (options) {
 
 				this.zoomObject(imageObject);
 
+				imageObject.dbProperties = {};
+				imageObject.dbProperties.AssetToCanvasID = options.ID;
+
 				this.images[ID] = imageObject;
 				this._reorder();
 
