@@ -45,11 +45,11 @@
 						</div>
 						<br>
 
-						<table class="table table-striped table-bordered">
+						<table class="table table-striped table-bordered indexOrder">
 							<tbody>
-								<tr class="object" ng-repeat="asset in canvasData.Assets" data-id="asset.ID">
+								<tr class="object" ng-repeat="asset in canvasData.Assets" data-id="{{asset.ID}}">
 									<td>
-										<img src="">
+										<img src="../backend/assets/{{asset.Filename}}" style="height: 35px;">
 									</td>
 									<td>
 										<label>

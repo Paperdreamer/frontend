@@ -142,9 +142,12 @@ var canvasClass = function (options) {
 			//this.canvas.setBackgroundImage(imgURL, this.canvas.renderAll.bind(this.canvas));
 		},
 
-		changeIndex: function (imageID, index) {
+		changeIndex: function (assetID, index) {
 			var size = _.size(this.images);
-			this.images[imageID].moveTo(size - (index + 1));
+
+			_.find(this.images, function (image){
+				return image.dbProperties.AssetToCanvasID == assetID;
+			}).moveTo(size - (index + 1));
 		},
 
 		export: function () {
