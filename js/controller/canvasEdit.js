@@ -24,7 +24,6 @@ app.controller("canvasEditController", function ($scope, $rootScope, $routeParam
 		});
 
 		$scope.saveChanges = function () {
-			// TODO Implementation
 			$scope.oldZoom = $scope.canvas.scale;
 			$scope.canvas.resetZoom();
 			var objects = $scope.canvas.canvas._objects,
