@@ -54,10 +54,16 @@ app.controller("userlistController", function ($scope, $rootScope, userlistFacto
 		if (user.Admin == 1 && user.Deleteable == 0) {
 			return ["Administrator"];
 		}
-		if ($scope.administratorLoggedIn)
+		if ($scope.administratorLoggedIn) {
 			return ["Administrator", "Moderator", "User"];
-		if ($scope.moderatorLoggedIn)
-			return ["Moderator", "User"];
+		}
+		if ($scope.moderatorLoggedIn) {
+			if(user.Admin == 1 && user.Deleteable == 1) {
+				return ["Moderator"];
+			} else {
+				return ["Moderator", "User"];
+			}
+		}
 		return ["User"];	
 	};
 	$scope.fetchUserlists();
