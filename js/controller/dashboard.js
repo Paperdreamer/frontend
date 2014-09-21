@@ -1,4 +1,4 @@
-app.controller("dashboardController", function ($scope, $rootScope, projectsFactory, userFactory, $location) {
+app.controller("dashboardController", function ($scope, $rootScope, projectsFactory, userFactory, $location, $route) {
 	$rootScope.updateHeader();
 	$scope.moderatorLoggedIn = false;
 	userFactory.update(function(data) {
@@ -15,11 +15,13 @@ app.controller("dashboardController", function ($scope, $rootScope, projectsFact
 		event.stopPropagation();
 		projectsFactory.closeProject(projectID);
 		$scope.fetchBelongedProjects();
+		$route.reload();
 	};
 	$scope.openProject = function(projectID) {
 		event.stopPropagation();
 		projectsFactory.openProject(projectID);
 		$scope.fetchBelongedProjects();
+		$route.reload();
 	};
 	$scope.deleteProject = function(projectID) {
 		event.stopPropagation();

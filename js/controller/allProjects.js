@@ -1,4 +1,4 @@
-app.controller("allProjectsController", function ($scope, $rootScope, projectsFactory, userFactory, $location) {
+app.controller("allProjectsController", function ($scope, $rootScope, projectsFactory, userFactory, $location, $route) {
 	$rootScope.updateHeader();
 	$scope.moderatorLoggedIn = false;
 	userFactory.update(function(data) {
@@ -28,11 +28,13 @@ app.controller("allProjectsController", function ($scope, $rootScope, projectsFa
 		event.stopPropagation();
 		projectsFactory.closeProject(projectID);
 		$scope.fetchAllProjects();
+		$route.reload();
 	};
 	$scope.openProject = function(projectID) {
 		event.stopPropagation();
 		projectsFactory.openProject(projectID);
 		$scope.fetchAllProjects();
+		$route.reload();
 	};
 	$scope.deleteProject = function(projectID) {
 		event.stopPropagation();

@@ -1,4 +1,4 @@
-app.controller("userlistController", function ($scope, $rootScope, userlistFactory, userFactory, hashService) {
+app.controller("userlistController", function ($scope, $rootScope, userlistFactory, userFactory, hashService, $route) {
 	$scope.selected = 1;
 	$scope.administratorLoggedIn = false;
 	$scope.moderatorLoggedIn = false;
@@ -20,6 +20,7 @@ app.controller("userlistController", function ($scope, $rootScope, userlistFacto
 			role = 1;
 		userlistFactory.updateUser(userID, "Role", role);
 		$scope.fetchUserlists();
+		$route.reload();
 	};
 
 	$scope.activateUser = function(username) {

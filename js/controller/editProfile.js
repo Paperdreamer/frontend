@@ -1,4 +1,4 @@
-app.controller("editProfileController", function ($scope, $rootScope, $routeParams, userlistFactory, userFactory, notificationFactory, hashService) {
+app.controller("editProfileController", function ($scope, $rootScope, $routeParams, userlistFactory, userFactory, notificationFactory, hashService, $route) {
 	var userID = $routeParams.userID;
 	$rootScope.updateHeader();
 	$scope.moderatorLoggedIn = false;
@@ -47,7 +47,7 @@ app.controller("editProfileController", function ($scope, $rootScope, $routePara
 		} else {
 			userlistFactory.updateUser(userID, action, newValue);
 		}
-		$scope.fetchUser(200);
+		$route.reload();
 	};
 	$scope.fetchUser(200);
 });;
