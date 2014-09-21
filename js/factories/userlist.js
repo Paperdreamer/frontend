@@ -18,8 +18,8 @@
 			}
 		});
 	};
-	object.sendRandomPassword = function(pass, user) {
-		var userData = {Password: pass, User: user};
+	object.sendRandomPassword = function(user) {
+		var userData = {User: user};
 		$http.post(settingsFactory.backendUrl + "user/randomPass", userData).error(function (data, status) {
 			notificationFactory.error({title: "Error: ", content: "An error occurred with status code: " + status + " and response: " + data});
 		});
