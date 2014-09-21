@@ -27,13 +27,11 @@ app.controller("allProjectsController", function ($scope, $rootScope, projectsFa
 	$scope.closeProject = function(projectID) {
 		event.stopPropagation();
 		projectsFactory.closeProject(projectID);
-		$scope.fetchAllProjects();
 		$route.reload();
 	};
 	$scope.openProject = function(projectID) {
 		event.stopPropagation();
 		projectsFactory.openProject(projectID);
-		$scope.fetchAllProjects();
 		$route.reload();
 	};
 	$scope.deleteProject = function(projectID) {

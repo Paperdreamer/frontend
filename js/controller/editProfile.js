@@ -83,7 +83,6 @@ app.controller("editProfileController", function ($scope, $rootScope, $routePara
 		else if (textRole == "Moderator")
 			role = 1;
 		userlistFactory.updateUser(userID, "Role", role);
-		$scope.fetchUser(200);
 		$route.reload();
 	};
 	$scope.fetchUser(200);

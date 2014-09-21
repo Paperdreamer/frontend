@@ -14,13 +14,11 @@ app.controller("dashboardController", function ($scope, $rootScope, projectsFact
 	$scope.closeProject = function(projectID) {
 		event.stopPropagation();
 		projectsFactory.closeProject(projectID);
-		$scope.fetchBelongedProjects();
 		$route.reload();
 	};
 	$scope.openProject = function(projectID) {
 		event.stopPropagation();
 		projectsFactory.openProject(projectID);
-		$scope.fetchBelongedProjects();
 		$route.reload();
 	};
 	$scope.deleteProject = function(projectID) {
