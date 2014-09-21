@@ -52,7 +52,7 @@ app.controller("editProfileController", function ($scope, $rootScope, $routePara
 		$route.reload();
 	};
 	$scope.getRoleFromUser = function(user) {
-		if (user.isAdmin == 1) {
+		if (user && user.isAdmin == 1) {
 			if (user.isDeleteable == 1) {
 				return "Moderator";
 			} else {
@@ -62,7 +62,7 @@ app.controller("editProfileController", function ($scope, $rootScope, $routePara
 		return "User";
 	};
 	$scope.getDropdownForUser = function(user) {
-		if (user.isAdmin == 1 && user.isDeleteable == 0) {
+		if (user && user.isAdmin == 1 && user.isDeleteable == 0) {
 			return ["Administrator"];
 		}
 		if ($scope.administratorLoggedIn)

@@ -29,7 +29,11 @@ app.controller("headerController", function ($scope, $rootScope, $location, user
 	};
 	
 	$scope.gravatarToPP = function(grmail, size) {
-		return "http://www.gravatar.com/avatar/" + hashService.MD5(grmail) + ".jpg?s=" + size;
+		var input = "";
+		if(grmail) {
+			input = grmail;
+		}
+		return "http://www.gravatar.com/avatar/" + hashService.MD5(input) + ".jpg?s=" + size;
 	};
 	
 	$rootScope.updateHeader = function() {
