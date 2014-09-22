@@ -42,13 +42,7 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 
 		
 	$scope.saveChanges = function () {
-		$scope.changeState = false;
-		$scope.editusers = false;
-		$scope.editname = false;
-		$scope.editdescription = false;
-		
-		var updatedProject = { 	Name: $scope.projectInfo.Name, 
-				Description: $scope.projectInfo.Description, 
+		var updatedUsers = {
 				Director: $scope.director, 
 				supervisors: $scope.supervisors,
 				artists: $scope.artists
@@ -60,7 +54,14 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 		var successCallback = function (data) {
 			$route.reload();
 		};
-		projectFactory.updateProject($scope.projectInfo.ID, updatedProject, successCallback, errorCallback);
+		if ($scope.editusers)
+			projectFactory.updateUsers($scope.projectInfo.ID, updatedUsers, function(data) {}, errorCallback);
+		projectFactory.updateProject($scope.projectInfo.ID, $scope.projectInfo, successCallback, errorCallback);
+		
+		$scope.changeState = false;
+		$scope.editusers = false;
+		$scope.editname = false;
+		$scope.editdescription = false;
 	};
 	
 	

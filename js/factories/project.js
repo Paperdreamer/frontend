@@ -12,6 +12,12 @@ app.factory('projectFactory', function ($http, settingsFactory) {
 				.error(errorCallback);
 		},
 	    
+		updateUsers: function(id, users, successCallback, errorCallback) {
+			$http.put(settingsFactory.backendUrl + "project/" + id + "/users", users)
+				.success(successCallback)
+				.error(errorCallback);
+		},
+	    
 		get: function (id, successCallback, errorCallback) {
 			$http.get(settingsFactory.backendUrl + "project/" + id)
 				.success(_.bind(function (data, status, headers, config) {
