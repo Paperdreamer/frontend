@@ -3,19 +3,19 @@
 	"version":	"",
 	
 	"dependencies": {
-		"bootstrap": 			"latest",
-		"font-awesome": 		"latest",
-		"modernizr": 			"latest",
-		"jquery": 				"latest",
-		"jquery-ui":			"latest",
+		"bootstrap": 			"3.1.1",
+		"font-awesome": 		"4.1.0",
+		"modernizr": 			"2.8.2",
+		"jquery": 			"2.1.1",
+		"jquery-ui":			"1.11.0",
 
-		"angular": 				"latest",
-		"angular-route":		"latest",
-		"angular-bootstrap":	"latest",
-		"restangular":			"latest",
+		"angular": 			"1.2.16",
+		"angular-route":		"1.2.16",
+		"angular-bootstrap":		"0.11.0",
+		"restangular":			"1.4.0",
 
-		"underscore":			"latest",
-		"fabric":				"latest"
+		"underscore":			"1.7.0",
+		"fabric":			"1.4.9"
 	},
 
 	"private": true

@@ -52,7 +52,9 @@ app.directive("pdcanvas", function(settingsFactory, projectFactory, notification
 						};
 
 						canvas.addImage(settingsFactory.assetPath + item.Filename, item);
-					});			
+					});
+
+					scope.$parent.$parent.canvas = canvas;
 				}
 
 			});	
