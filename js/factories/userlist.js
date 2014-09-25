@@ -37,8 +37,17 @@
 	};
 	object.updateUser = function(userID, action, newValue) {
 		var updateData = {UserID: userID, Action: action, NewValue: newValue};
-		$http.put(settingsFactory.backendUrl + "user", updateData).error(function(data, status) {
-			notificationFactory.error({title:"Error:", content: "Server error occurred with status code:  " + status + " and response: " + data});
+		$http
+		.put(settingsFactory.backendUrl + "user", updateData)
+		.success(function(data) {
+			notificationFactory.success({content: "Change successful"});
+		})
+		.error(function(data, status) {
+			if(status == 409) {
+				notificationFactory.warning({content: data});
+			} else {
+				notificationFactory.error({title:"Error:", content: "Server error occurred with status code:  " + status + " and response: " + data});
+			}
 		});
 	};
 	return object;
