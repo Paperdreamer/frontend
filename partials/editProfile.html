@@ -50,16 +50,20 @@
 		</div>
 		<div class="form-group">
 			<label class="control-label">Role</label>
-			<div class="input-group">
-				<input type="text" class="form-control" value="{{role}}" readonly>
-				<span class="input-group-btn">
-					<a href="#userlist"><button class="btn btn-default" type="button" ng-disabled="!moderatorLoggedIn">Change</button></a>
-				</span>
-			</div>		
+			<div ng-show="getDropdownForUser(user).length <= 1">{{getRoleFromUser(user)}}</div>
+			<div class="input-group-btn" ng-show="getDropdownForUser(user).length > 1">
+				<li class="dropdown">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{getRoleFromUser(user)}}<span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+						<li ng-click="changeRole(user.ID, type)" ng-repeat="type in getDropdownForUser(user)"><a href="#user/{{user.ID}}/editProfile">{{type}}</a></li>
+					</ul>
+				</li>
+			</div>
 		</div>
 		<div class="form-group">
 			<button class="btn btn-default" type="button" ng-click="togglePassword(); toggleButton('password')" ng-show="changeVer['password']">Change Password</button>
 			<button class="btn btn-default" type="button" ng-click="togglePassword(); toggleButton('password')" ng-show="!changeVer['password']">Cancel</button>
+			<a href="#user/{{user.ID}}"><button class="btn btn-default" type="button">Back To Profile</button></a>
 		</div>
 	</form>
 	<form role="form" novalidate name="passForm" style="width: 50%" ng-submit="updateUser(user.ID, 'Password', newPassword)" ng-show="passChangeable">

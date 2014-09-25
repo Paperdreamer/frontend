@@ -9,19 +9,21 @@
 		return suspendedUsers.getList();
 	};
 	object.activateUser = function(username) {
-		console.log("Activate", username);
 		var usernameData = { Username: username };
-		$http.post(settingsFactory.backendUrl + "user/activate", usernameData).success(function (data) {
-			console.log("ActivateUser Rückgabe", data);
-		}).error(function (data, status) {
+		$http.post(settingsFactory.backendUrl + "user/activate", usernameData).error(function (data, status) {
 			if (status == 401) {
 				notificationFactory.error({content: "You are not logged in as administrator."});
 			} else {
-				notificationFactory.error({title: "Error:", content: "Server error occured with status code: " + status + " and reponse: " + data });
+				notificationFactory.error({title: "Error:", content: "Server error occurred with status code: " + status + " and reponse: " + data });
 			}
 		});
 	};
-	
+	object.sendRandomPassword = function(user) {
+		var userData = {User: user};
+		$http.post(settingsFactory.backendUrl + "user/randomPass", userData).error(function (data, status) {
+			notificationFactory.error({title: "Error: ", content: "An error occurred with status code: " + status + " and response: " + data});
+		});
+	};
 	object.changeRole = function(userID, role) {
 		var userData = {UserID: userID, Role: role};
 		$http.put(settingsFactory.backendUrl + "user", userData).error(function(data, status) {
