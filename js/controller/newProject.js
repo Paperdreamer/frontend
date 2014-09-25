@@ -1,4 +1,4 @@
- app.controller("newProjectController", function ($scope, $location, userlistFactory, newProjectFactory, notificationFactory, userFactory) {
+ app.controller("newProjectController", function ($scope, $location, userlistFactory, projectFactory, notificationFactory, userFactory) {
 	$scope.project = { 	Name: "", 
 				Description: "", 
 				Director: "", 
@@ -61,7 +61,7 @@
 			$location.path("/dashboard");
 		};
 		
-		newProjectFactory.createProject($scope.project, successCallback, errorCallback);
+		projectFactory.createProject($scope.project, successCallback, errorCallback);
 	};
  });
  

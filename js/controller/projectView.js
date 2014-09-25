@@ -1,22 +1,78 @@
-app.controller("projectViewController", function ($scope, $rootScope, $routeParams, projectFactory, notificationFactory) {
+app.controller("projectViewController", function ($scope, $rootScope, $routeParams, $route, projectFactory, notificationFactory, userFactory, userlistFactory) {
 	// If this is true, the order was changed -> enable the save button.
 	$scope.changeState = false;
-
-	$scope.removeCanvas = function (canvasID) {
-		var projectID = $routeParams.projectID,
-
-		successCallback = function (data) {
-			// Remove the panel / canvas from the list
-			$scope.canvasList = _.filter($scope.canvasList, function (item) {
-				return item.ID != canvasID;
+	
+	userlistFactory.getActiveUsers().then(function(data) {
+			$scope.allUsers = [];
+			angular.forEach(data, function(item){
+				$scope.allUsers.push(item.Name);
+			});
+		}, function(error) {
+			$scope.error = error;
+		});
+	
+	projectFactory.getUsers(
+		$routeParams.projectID,
+		// success callback
+		function (data) {
+			$scope.users = data;
+			$scope.artists = new Array();
+			$scope.supervisors = new Array();
+			$scope.users.forEach(function(element) {
+				if (element.Role == "Supervisor")
+					$scope.supervisors.push({Name: element.Name});
+				else if (element.Role == "Artist")
+					$scope.artists.push({Name: element.Name});
+				else if (element.Role == "Director")
+					$scope.director = element.Name;
 			});
 		},
+		// error callback
+		function (data, status) {
+			notificationFactory.error({
+				title: "An error occured contacting the Server, code " + status,
+				content: data
+			});
+		});
+	
+	
+	userFactory.update(function (data) {
+		$scope.moderatorLoggedIn = userFactory.isModerator() || Director.UserID == data["ID"];
+	});
 
-		errorCallback = function () {
-			notificationFactory.error("The chosen canvas could not be deleted due to server issues.");
+		
+	$scope.saveChanges = function () {
+		var updatedUsers = {
+				Director: $scope.director, 
+				supervisors: $scope.supervisors,
+				artists: $scope.artists
+		};		
+		var errorCallback = function (data, status) {
+			notificationFactory.error({title: "Error:", content: "Server error occured with status code: " + status + " and reponse: " + data });
 		};
 
-		projectFactory.removeCanvas(projectID, canvasID, successCallback, errorCallback);
+		var successCallback = function (data) {
+			$route.reload();
+		};
+		if ($scope.editusers)
+			projectFactory.updateUsers($scope.projectInfo.ID, updatedUsers, function(data) {}, errorCallback);
+		projectFactory.updateProject($scope.projectInfo.ID, $scope.projectInfo, successCallback, errorCallback);
+		
+		$scope.changeState = false;
+		$scope.editusers = false;
+		$scope.editname = false;
+		$scope.editdescription = false;
+	};
+	
+	
+	$scope.isUsername = function(name) {
+		if ($scope.users == undefined)
+			return false;
+		var filtered  = $scope.allUsers.filter(function(element, index, array) {
+				return element == name;
+			}
+		);
+		return (typeof filtered !== 'undefined' && filtered.length > 0);
 	};
 
 	$scope.createCanvas = function (Title, Description, Notes) {
@@ -26,11 +82,19 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 			notificationFactory.error("Server returned error code: " + status + ".");
 		});
 	};
-
-	$scope.saveChanges = function () {
-		// TODO Implementation
-		projectFactory.saveProject($routeParams.projectID, $scope.projectInfo);
-		$scope.changeState = false;
+	
+	$scope.removeCanvas = function (canvasID) {
+		var projectID = $routeParams.projectID,
+		successCallback = function (data) {
+			// Remove the panel / canvas from the list
+			$scope.canvasList = _.filter($scope.canvasList, function (item) {
+				return item.ID != canvasID;
+			});
+		},
+		errorCallback = function () {
+			notificationFactory.error("The chosen canvas could not be deleted due to server issues.");
+		};
+		projectFactory.removeCanvas(projectID, canvasID, successCallback, errorCallback);
 	};
 
 	$scope.getList = function () {
@@ -76,5 +140,20 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 
 	$scope.getList();
 
-
+	$scope.addSupervisor = function() {
+		$scope.supervisors.push({Name: ""});
+		$scope.changeState = true;
+	};
+	$scope.removeSupervisor = function(supervisor) {
+		$scope.supervisors.splice($scope.supervisors.indexOf(supervisor), 1);
+		$scope.changeState = true;
+	};
+	$scope.addArtist = function() {
+		$scope.artists.push({Name: ""});
+		$scope.changeState = true;
+	};
+	$scope.removeArtist = function(artist) {
+		$scope.artists.splice($scope.artists.indexOf(artist), 1);
+		$scope.changeState = true;
+	};
 });

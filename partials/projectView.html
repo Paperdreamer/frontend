@@ -51,21 +51,77 @@
 			</div>
   			<div class="panel-body">
 				<div class="row">
-					<!-- Menu Heading -->
+					<div class="col-md-12" ng-show="!editname && moderatorLoggedIn">
+						<b>Name:</b> {{projectInfo.Name}}
+						<button type="button" class="btn btn-sm pull-right" ng-click="editname = true">Edit...</button>
+						<br/>
+					</div>
+					<div class="col-md-12 form-group" ng-show="editname">
+						<b>Name:</b>
+						<input class="form-control" type="text" ng-change="changeState = true" ng-model="projectInfo.Name"/>
+					</div>
+					
+					<div class="col-md-12" ng-show="!editdescription && moderatorLoggedIn">
+						<b>Description:</b> {{projectInfo.Description}}
+						<button type="button" class="btn btn-sm pull-right" ng-click="editdescription = true">Edit...</button>
+						<br/>
+					</div>
+					<div class="col-md-12 form-group" ng-show="editdescription">
+						<b>Description:</b>
+						<input class="form-control" type="text" ng-change="changeState = true" ng-model="projectInfo.Description"/>
+					</div>
+					
+					<div class="col-md-12" ng-show="!editusers && moderatorLoggedIn">
+						<b>Users:</b>
+						<span ng-repeat="user in users">
+							<a ng-href="#/user/{{user.UserID}}">{{user.Name}}</a>
+							({{user.Role}})
+							{{$last ? '' : ', '}}
+						</span>
+						<br/>
+						<button type="button" class="btn btn-sm pull-right" ng-click="editusers = true">Edit...</button>
+					</div>
+					<div class="col-md-12" ng-show="editusers">
+						<div class="form-group" ng-class="{'has-error': !isUsername(director), 'has-success': isUsername(director)}">
+							<label class="control-label">* Director:</label>
+							<input class="form-control" type="text" ng-change="changeState = true" ng-model="director" ng-readonly="!moderatorLoggedIn" name="Director" autocomplete="off" required placeholder="Username" typeahead="user for user in allUsers | filter:$viewValue | limitTo:5">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Supervisors:</label>
+							<div class="input-group" ng-repeat="supervisor in supervisors track by $index" ng-class="{'has-error': !isUsername(supervisor.Name), 'has-success': isUsername(supervisor.Name)}">
+								<input type="text" class="form-control" ng-change="changeState = true" ng-model="supervisor.Name" name="Supervisor" autocomplete="off" placeholder="Username" typeahead="user for user in allUsers | filter:$viewValue | limitTo:5">
+								<span class="input-group-btn">
+									<button class="btn btn-danger" class="form-control" ng-click="removeSupervisor(supervisor)">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button><!-- Make this an icon!! -->
+								</span>
+							</div>
+							<button class="btn form-control" ng-click="addSupervisor()">Add Supervisor...</button>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Artists:</label>
+							<div class="input-group" ng-repeat="artist in artists track by $index" ng-class="{'has-error': !isUsername(artist.Name), 'has-success': isUsername(artist.Name)}">
+								<input class="form-control" type="text" ng-change="changeState = true" ng-model="artist.Name" name="Artist" autocomplete="off" placeholder="Username" typeahead="user for user in allUsers | filter:$viewValue | limitTo:5">
+								<span class="input-group-btn">
+									<button class="btn btn-danger" class="form-control" ng-click="removeArtist(artist)">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button><!-- Make this an icon!! -->
+								</span>
+							</div>
+							<button class="btn form-control" ng-click="addArtist()">Add Artist...</button>
+						</div>
+					</div>
+					
 					<div class="col-md-12">
-						details, recruit user, delete ...
+						<hr>
+						<button class="btn btn-warning" ng-disabled="!changeState" ng-click="saveChanges()">Save</button>
 					</div>
 				</div>
 				<br>
 				<div class="row">
-					<!-- Menu -->
 					<div class="col-md-12">
 						<p>Comentary area (can be hidden): list of topics that can be "opened" and show posts and replies (?)</p>
 						<p>post new comment with modals (bootstrap)</p>
-					</div>
-					<div class="col-md-12">
-						<hr>
-						<button class="btn btn-warning" ng-disabled="!changeState" ng-click="saveChanges()">Save</button>
 					</div>
 				</div>
 			</div>
