@@ -1,11 +1,12 @@
-app.controller("registrationController", function ($scope, $location, notificationFactory, registrationFactory) {
+app.controller("registrationController", function ($scope, $location, notificationFactory, registrationFactory, hashService) {
 	$scope.register = function () {
+		var passwordHash = hashService.MD5($scope.registration.Password);
 		var registrationData = {
 			Fullname: $scope.registration.Fullname,
 			Name: $scope.registration.Name,
 			Email: $scope.registration.Email,
 			GravatarEmail: $scope.registration.GravatarEmail,
-			Password: $scope.registration.Password
+			PasswordHash: passwordHash
 		};
 
 		var errorCallback = function (data, status) {
