@@ -7,21 +7,25 @@ app.controller("canvasEditController", function ($scope, $rootScope, $routeParam
 	$scope.ready = false;
 
 
-	projectFactory.getCanvas(
-		$routeParams.projectID,
-		$routeParams.canvasID,
-		// success callback
-		function (data) {
-			$scope.canvasData = data;
-			$scope.ready = true;
-		},
-		// error callback
-		function (data, status) {
-			notificationFactory.error({
-				title: "An error occured contacting the Server, code " + status,
-				content: data
-			});
+	$scope.start = function () {
+		projectFactory.getCanvas(
+			$routeParams.projectID,
+			$routeParams.canvasID,
+			// success callback
+			function (data) {
+				$scope.canvasData = data;
+				$scope.ready = true;
+			},
+			// error callback
+			function (data, status) {
+				notificationFactory.error({
+					title: "An error occured contacting the Server, code " + status,
+					content: data
+				});
 		});
+	};
+
+	$scope.start();
 
 		$scope.saveChanges = function () {
 			$scope.oldZoom = $scope.canvas.scale;
@@ -31,6 +35,8 @@ app.controller("canvasEditController", function ($scope, $rootScope, $routeParam
 				newAssets = [];
 
 			_.each(objects, function (object, index) {
+				var asset = _.findWhere($scope.canvasData.Assets, {ID: object.dbProperties.AssetToCanvasID});
+
 				var objectData = {
 					ID: object.dbProperties.AssetToCanvasID,
 					top: object.top,
@@ -43,21 +49,40 @@ app.controller("canvasEditController", function ($scope, $rootScope, $routeParam
 					Index: index
 				};
 
-				newAssets.push(objectData);
-			});
+				if (object.dbProperties.asset) {
+					_.extend(objectData, object.dbProperties.asset);
+					objectData.ID = null;
+					objectData.AssetID = object.dbProperties.asset.ID;
+				}
 
-			$scope.canvasData.Assets = newAssets;
+				if (asset) {
+					_.extend(asset, objectData);	
+				} else {
+					$scope.canvasData.Assets.push(objectData);
+				}
+				
+			});
 
 			projectFactory.saveCanvas($routeParams.projectID, $routeParams.canvasID, $scope.canvasData, function () {
 				notificationFactory.success("Canvas saved successfully");
 				$scope.canvas.zoom($scope.oldZoom);
-
-				$route.reload();
 			}, function (data, status) {
 				notificationFactory.error("An error occured contacting the server. Error Code: " + status);
 			});
 
 			$scope.changeState = false;
+		};
+
+		$scope.removeAsset = function (asset) {
+			
+			projectFactory.removeAssetFromCanvas($routeParams.projectID, $routeParams.canvasID, asset.ID, function () {
+				$scope.canvas.removeImage(asset.canvasInfo.object);
+
+				$scope.canvasData.Assets = _.without($scope.canvasData.Assets, asset);
+			}, function (data, status) {
+				notificationFactory.error("An error occured contactig the server.");
+			});
+
 		};
 
 		$scope.navigateBack = function () {

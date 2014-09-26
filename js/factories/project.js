@@ -54,6 +54,14 @@ app.factory('projectFactory', function ($http, settingsFactory) {
 				.error(errorCallback);
 		},
 
+		removeAssetFromCanvas: function (projectID, canvasID, assetID, successCallback, errorCallback) {
+			$http.delete(settingsFactory.backendUrl + "project/" + projectID + "/canvas/" + canvasID + "/assets/" + assetID)
+				.success(_.bind(function (data, status, headers, config) {
+					successCallback(data, status, headers, config);
+				}, this))
+				.error(errorCallback);
+		},
+
 		createCanvas: function (projectID, positionIndex, title, description, notes, successCallback, errorCallback) {
 			var data = {
 				ProjectID: projectID,

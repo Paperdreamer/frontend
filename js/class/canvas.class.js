@@ -60,8 +60,14 @@ var canvasClass = function (options) {
 				this.zoomObject(imageObject);
 
 				imageObject.dbProperties = {};
+
+				if (options.ID)
 				imageObject.dbProperties.AssetToCanvasID = options.ID;
 
+				if (options.asset) {
+					imageObject.dbProperties.asset = options.asset;	
+				}
+				
 				this.images[ID] = imageObject;
 				this._reorder();
 
@@ -148,6 +154,10 @@ var canvasClass = function (options) {
 			_.find(this.images, function (image){
 				return image.dbProperties.AssetToCanvasID == assetID;
 			}).moveTo(size - (index + 1));
+		},
+
+		removeImage: function (imageObject) {
+			this.canvas.remove(imageObject);
 		},
 
 		export: function () {

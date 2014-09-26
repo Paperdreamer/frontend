@@ -40,15 +40,14 @@ app.directive("pdcanvas", function(settingsFactory, projectFactory, notification
 						height: 186,
 						manipulation: scope.manipulation,
 						backgroundImageURL: settingsFactory.assetPath + 'beach.jpg'
-					}),
-					canvasObjects = {};
+					});
 
 					// Apply scale
 					canvas.zoom(scale);
 
 					_.each(scope.canvasData.Assets, function (item) {
 						item.success = function (info) {
-							canvasObjects[item.ID] = info;
+							item.canvasInfo = info;
 						};
 
 						canvas.addImage(settingsFactory.assetPath + item.Filename, item);
