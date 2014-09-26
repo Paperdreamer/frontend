@@ -3,13 +3,13 @@ app.factory("userFactory", function ($http, settingsFactory, notificationFactory
 		userData: null,
 		expirationCallback: null,
 
-		login: function (nameOrMail, password, successCallback, errorCallback) {
+		login: function (nameOrMail, passwordHash, successCallback, errorCallback) {
 			$http({
 				method: 'GET', 
 				url: settingsFactory.backendUrl + 'login', 
 				headers: {
 					username: nameOrMail,
-					password: password
+					passwordHash: passwordHash
 				}
 			}).success(_.bind(function (data, status, headers, config) {
 				if (data != "false") {
