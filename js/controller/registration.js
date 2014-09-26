@@ -10,7 +10,7 @@ app.controller("registrationController", function ($scope, $location, notificati
 
 		var errorCallback = function (data, status) {
 			if (status == 409) {
-				notificationFactory.warning({content: "Username or E-Mail already taken."});
+				notificationFactory.warning({content: data});
 			} else {
 				notificationFactory.error({title: "Error:", content: "Server error occured with status code: " + status + " and reponse: " + data });
 			}
