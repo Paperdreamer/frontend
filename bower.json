@@ -13,6 +13,8 @@
 		"angular-route":		"1.2.16",
 		"angular-bootstrap":		"0.11.0",
 		"restangular":			"1.4.0",
+		"ng-file-upload": 		"~1.6.9",
+		"ng-file-upload-shim":	"~1.6.9",
 
 		"underscore":			"1.7.0",
 		"fabric":			"1.4.9"
