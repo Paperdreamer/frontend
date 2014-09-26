@@ -50,7 +50,7 @@ app.factory("userFactory", function ($http, settingsFactory, notificationFactory
 		},
 
 		isLoggedIn: function () {
-			if (_.isNull(userData)) {
+			if (_.isNull(this.userData)) {
 				return false;
 			} else {
 				return true;
