@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module("paperdreamer", ["ngRoute", "restangular", "ui.bootstrap"]);
+var app = angular.module("paperdreamer", ["ngRoute", "restangular", "ui.bootstrap", "angularFileUpload"]);
 
 var templatePath = "partials/",
 	restAPI = "../backend/";
@@ -12,7 +12,8 @@ app.config(function ($routeProvider, RestangularProvider) {
 	$routeProvider
 		.when('/login', {
 			templateUrl: templatePath + 'login.html',
-			controller: "loginController"
+			controller: "loginController",
+			isPublic: true
 		})
 		.when('/registration', {
 			templateUrl: templatePath + 'registration.html',
@@ -60,5 +61,18 @@ app.config(function ($routeProvider, RestangularProvider) {
 
 	.otherwise({
 		redirectTo: '/login'
+	});
+});
+
+
+app.run(function($rootScope, $location, userFactory) {
+	// Listen to routeChange event in order to prevent the user from entering the app if not logged in
+	userFactory.update(function () {
+		$rootScope.$on('$routeChangeStart', function(event, nextLocation, currentLocation) {
+			if (nextLocation.$$route)
+				if(!nextLocation.$$route.isPublic && !userFactory.isLoggedIn()) {
+					$location.path('/login');
+				}
+		});	
 	});
 });
