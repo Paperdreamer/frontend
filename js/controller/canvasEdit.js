@@ -1,4 +1,4 @@
-app.controller("canvasEditController", function ($scope, $rootScope, $routeParams, projectFactory, notificationFactory, $route) {
+app.controller("canvasEditController", function ($scope, $rootScope, $routeParams, projectFactory, notificationFactory, $location) {
 
 	var projectInfo;
 
@@ -86,7 +86,7 @@ app.controller("canvasEditController", function ($scope, $rootScope, $routeParam
 		};
 
 		$scope.navigateBack = function () {
-			window.history.back();
+            $location.path("project/" + $routeParams.projectID);
 		};
 
 		$( "table.indexOrder tbody" ).sortable({
