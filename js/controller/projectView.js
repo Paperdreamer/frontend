@@ -66,7 +66,7 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 	
 	
 	$scope.isUsername = function(name) {
-		if ($scope.users == undefined)
+		if (!$scope.allUsers)
 			return false;
 		var filtered  = $scope.allUsers.filter(function(element, index, array) {
 				return element == name;
@@ -111,6 +111,8 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 				});
 
 				$scope.canvasList = canvasList;
+
+                $scope.role = data["UserRole"];
 
 				$( ".canvasPanels" ).sortable({
 					items: ".canvas",
