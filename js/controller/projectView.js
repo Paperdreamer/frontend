@@ -1,11 +1,55 @@
 app.controller("projectViewController", function ($scope, $rootScope, $routeParams, $route, projectFactory, notificationFactory, userFactory, userlistFactory) {
 	// If this is true, the order was changed -> enable the save button.
 	$scope.changeState = false;
+	$scope.newComment = {ID: 3, Title:"", Text:"", Author:null, Date:null};
+	$scope.comments = [];
+	
+	$scope.reloadComments = function() {
+		var successCallback = function (data) {
+			$scope.comments = data;
+		};
+		
+		var errorCallback = function (data, status) {
+			notificationFactory.error({title: "Error:", content: "Server error occured with status code: " + status + " and reponse: " + data });
+		};
+		
+		projectFactory.getComments($routeParams.projectID, successCallback, errorCallback);
+	};
+	
+	$scope.postNewComment = function() {
+		$scope.newComment.Date = new Date();
+		$scope.newComment.Author = $scope.userid;
+		
+		var successCallback = function (data) {
+			$scope.reloadComments();
+		};
+		
+		var errorCallback = function (data, status) {
+			notificationFactory.error({title: "Error:", content: "Server error occured with status code: " + status + " and reponse: " + data });
+		};
+		
+		projectFactory.postComment($routeParams.projectID, $scope.newComment, successCallback, errorCallback);
+		
+		$scope.newComment = {Title:"", Text:"", Author:null, Date:null};
+	};
+	
+	$scope.deleteComment = function(comment) {
+		var successCallback = function (data) {
+			$scope.reloadComments();
+		};
+		
+		var errorCallback = function (data, status) {
+			notificationFactory.error({title: "Error:", content: "Server error occured with status code: " + status + " and reponse: " + data });
+		};
+		
+		projectFactory.deleteComment($routeParams.projectID, comment.ID, successCallback, errorCallback);
+	};
 	
 	userlistFactory.getActiveUsers().then(function(data) {
-			$scope.allUsers = [];
+			$scope.allUsernames = [];
+			$scope.systemUsers = data;
 			angular.forEach(data, function(item){
-				$scope.allUsers.push(item.Name);
+				$scope.allUsernames.push(item.Name);
 			});
 		}, function(error) {
 			$scope.error = error;
@@ -37,6 +81,7 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 	
 	
 	userFactory.update(function (data) {
+		$scope.userid = data.ID;
 		$scope.moderatorLoggedIn = userFactory.isModerator() || Director.UserID == data["ID"];
 	});
 
@@ -68,11 +113,20 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 	$scope.isUsername = function(name) {
 		if ($scope.users == undefined)
 			return false;
-		var filtered  = $scope.allUsers.filter(function(element, index, array) {
+		var filtered  = $scope.allUsernames.filter(function(element, index, array) {
 				return element == name;
 			}
 		);
 		return (typeof filtered !== 'undefined' && filtered.length > 0);
+	};
+	
+	$scope.getUsername = function(id) {
+		var name = -1;
+		angular.forEach($scope.systemUsers, function(item) {
+				if (item.ID == id)
+					name = item.Name;
+			});
+		return name;
 	};
 
 	$scope.createCanvas = function (Title, Description, Notes) {
@@ -139,6 +193,7 @@ app.controller("projectViewController", function ($scope, $rootScope, $routePara
 	};
 
 	$scope.getList();
+	$scope.reloadComments();
 
 	$scope.addSupervisor = function() {
 		$scope.supervisors.push({Name: ""});

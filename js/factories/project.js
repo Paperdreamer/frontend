@@ -79,6 +79,24 @@ app.factory('projectFactory', function ($http, settingsFactory) {
 			this.data = {};
 		},
 
-		data: {}
+		data: {},
+	    
+		postComment: function (projectID, commentData, successCallback, errorCallback) {
+			$http.post(settingsFactory.backendUrl + "project/" + projectID + "/comment", commentData)
+				.success(successCallback)
+				.error(errorCallback);
+		},
+	    
+		deleteComment: function (projectID, commentID, successCallback, errorCallback) {
+			$http.delete(settingsFactory.backendUrl + "project/" + projectID + "/comment/" + commentID)
+				.success(successCallback)
+				.error(errorCallback);
+		},
+	    
+		getComments: function (projectID, successCallback, errorCallback) {
+			$http.get(settingsFactory.backendUrl + "project/" + projectID + "/comments")
+				.success(successCallback)
+				.error(errorCallback);
+		}
 	};
 });
