@@ -1,4 +1,4 @@
-app.controller("loginController", function ($scope, $location, $rootScope, userFactory, notificationFactory) {
+app.controller("loginController", function ($scope, $location, $rootScope, userFactory, notificationFactory, hashService) {
 	// If user is already logged in, redirect to the dashboard
 	userFactory.update(function (data, status) {
 			if (status != undefined) {
@@ -11,7 +11,8 @@ app.controller("loginController", function ($scope, $location, $rootScope, userF
 		});
 
 	$scope.login = function () {
-		userFactory.login($scope.login.username, $scope.login.password, function (data) {
+		var passwordHash = hashService.MD5($scope.login.password);
+		userFactory.login($scope.login.username, passwordHash, function (data) {
 			if (data != "false") {
 				notificationFactory.success({title: "Login", content: "successful!"});
 				$location.path("/dashboard");

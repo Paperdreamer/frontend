@@ -1,4 +1,4 @@
-app.controller("allProjectsController", function ($scope, $rootScope, projectsFactory, userFactory, $location) {
+app.controller("allProjectsController", function ($scope, $rootScope, projectsFactory, userFactory, $location, $route) {
 	$rootScope.updateHeader();
 	$scope.moderatorLoggedIn = false;
 	userFactory.update(function(data) {
@@ -13,7 +13,7 @@ app.controller("allProjectsController", function ($scope, $rootScope, projectsFa
 					for(i = 0; i < $scope.allProjects.length; i++) {
 						for(j = 0; j < belongedProjects.length; j++) {
 							if($scope.allProjects[i]["ID"] == belongedProjects[j]["ID"]) {
-								$scope.allProjects[i]["Role"] = belongedProjects[j]["Role"];
+								$scope.allProjects[i] = _.extend({Role: belongedProjects[j]["Role"]}, $scope.allProjects[i]);
 							}
 						}
 					}
@@ -27,12 +27,12 @@ app.controller("allProjectsController", function ($scope, $rootScope, projectsFa
 	$scope.closeProject = function(projectID) {
 		event.stopPropagation();
 		projectsFactory.closeProject(projectID);
-		$scope.fetchAllProjects();
+		$route.reload();
 	};
 	$scope.openProject = function(projectID) {
 		event.stopPropagation();
 		projectsFactory.openProject(projectID);
-		$scope.fetchAllProjects();
+		$route.reload();
 	};
 	$scope.deleteProject = function(projectID) {
 		event.stopPropagation();

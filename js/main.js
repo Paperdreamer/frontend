@@ -54,6 +54,10 @@ app.config(function ($routeProvider, RestangularProvider) {
 			templateUrl: templatePath + 'editProfile.html',
 			controller: "editProfileController"
 		})
+		.when('/forgotPassword', {
+			templateUrl: templatePath + 'forgotPassword.html',
+			controller: "forgotPasswordController"
+		})
 
 	.otherwise({
 		redirectTo: '/login'
