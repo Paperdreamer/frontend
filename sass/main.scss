@@ -18,6 +18,10 @@ body {
 	padding-top: 3px;
 }
 
+.clickable {
+	cursor: pointer;
+}
+
 @import 'login';
 @import 'notification';
 @import 'projectView';
