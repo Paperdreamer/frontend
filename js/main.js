@@ -75,16 +75,4 @@ app.run(function($rootScope, $location, userFactory) {
 				}
 		});	
 	});
-
-	if (userFactory.isLoggedIn()) {
-		if ($location.path() == "/login") {
-			// Redirect to dashboard. loading.hide() will be handled by route change event.
-			$location.path("/dashboard");
-		} else {
-			// Hide the loading box and show the app
-			notificationFactory.loading.hide();
-		}
-	} else {
-		$location.path('login');
-	}
 });
