@@ -66,6 +66,8 @@ app.controller("canvasEditController", function ($scope, $rootScope, $routeParam
 			projectFactory.saveCanvas($routeParams.projectID, $routeParams.canvasID, $scope.canvasData, function () {
 				notificationFactory.success("Canvas saved successfully");
 				$scope.canvas.zoom($scope.oldZoom);
+				//TODO: Mabye someone will improve this...
+				window.location.reload();
 			}, function (data, status) {
 				notificationFactory.error("An error occured contacting the server. Error Code: " + status);
 			});
