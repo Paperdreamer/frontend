@@ -94,7 +94,12 @@
 					</div>
 
 					<div class="col-sm-9" ng-show="upload.inProgress">
-						<h2 class="text-center text-danger">Upload in progress. Please wait...</h2>
+						<h3 class="text-center text-danger">Upload in progress. Please wait...</h3>
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="{{upload.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+								<span class="sr-only">{{upload.progress}}% Complete</span>
+							</div>
+						</div>
 					</div>
 
 				</div>

@@ -81,7 +81,16 @@ app.directive("assetmanager", function(settingsFactory, projectFactory, notifica
 
 			$scope.startUpload = function () {
 				_.each($scope.chosenFiles, function (file) {
-					assetFactory.uploadAsset($scope.chosenTag.ID, $scope.assetName, file);
+					assetFactory.uploadAsset($scope.chosenTag.ID, $scope.assetName, file, function () {
+							// Success callback
+							$scope.upload.inProgress = false;
+
+							// TODO: Maybe someone will improve this...
+							window.location.reload();
+						}, function (percent) {
+							$scope.upload.progress = percent;
+						}
+					);
 				});
 			};
 
