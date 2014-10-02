@@ -22,6 +22,10 @@ body {
 	cursor: pointer;
 }
 
+canvas {
+	border: 1px solid black;
+}
+
 @import 'login';
 @import 'notification';
 @import 'projectView';

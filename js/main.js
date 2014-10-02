@@ -17,7 +17,8 @@ app.config(function ($routeProvider, RestangularProvider) {
 		})
 		.when('/registration', {
 			templateUrl: templatePath + 'registration.html',
-			controller: "registrationController"
+			controller: "registrationController",
+			isPublic: true
 		})
 		.when('/userlist', {
 			templateUrl: templatePath + 'userlist.html',
@@ -56,7 +57,8 @@ app.config(function ($routeProvider, RestangularProvider) {
 		})
 		.when('/forgotPassword', {
 			templateUrl: templatePath + 'forgotPassword.html',
-			controller: "forgotPasswordController"
+			controller: "forgotPasswordController",
+			isPublic: true
 		})
 
 	.otherwise({

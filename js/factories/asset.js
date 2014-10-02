@@ -12,7 +12,7 @@ app.factory("assetFactory", function ($http, Restangular, $upload, settingsFacto
 			return $http.post(settingsFactory.backendUrl + "project/" + projectID + "/canvas/" + canvasID + "/assets/" + assetID);
 		},
 
-		uploadAsset: function (tagID, name, file) {
+		uploadAsset: function (tagID, name, file, success, progress) {
 			return $upload.upload({
 				url: settingsFactory.backendUrl + '_assets', //upload.php script, node.js route, or servlet url
 				method: 'POST',
@@ -26,10 +26,14 @@ app.factory("assetFactory", function ($http, Restangular, $upload, settingsFacto
 				// customize how data is added to formData. See #40#issuecomment-28612000 for sample code
 				//formDataAppender: function(formData, key, val){}
 			}).progress(function(evt) {
-				//console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+				if (_.isFunction(progress)) {
+					// Call progress function and hand over the percantage.
+					progress(parseInt(100.0 * evt.loaded / evt.total));
+				}
 			}).success(function(data, status, headers, config) {
-				// file is uploaded successfully
-				//console.log(data);
+				if (_.isFunction(success)) {
+					success(data, status, headers, config);
+				}
 			});
 		}
 	}
