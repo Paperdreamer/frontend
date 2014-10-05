@@ -23,3 +23,6 @@
 
 ## Documentation
 	// TODO
+
+##Licensing
+All files in this repository are available under the AGPL License. See LICENSE file
