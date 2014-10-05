@@ -33,7 +33,8 @@
 						</p>
 					</div>
 					<div class="panel-footer" style="text-align: right;">
-						<a href="#/project/{{projectInfo.ID}}/canvas/{{canvas.ID}}" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+						<div class="btn btn-danger" ng-click="removeCanvas(canvas.ID)"  ng-hide="!role"><span class="glyphicon glyphicon-trash"></span> Delete</div>
+						<a href="#/project/{{projectInfo.ID}}/canvas/{{canvas.ID}}" class="btn btn-primary" ng-hide="!role"><span class="glyphicon glyphicon-edit"></span> Edit</a>
 					</div>
 				</div>
 
@@ -48,25 +49,132 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Project Menu</h3>
 			</div>
-  			<div class="panel-body">
+  			<div class="panel-body" ng-hide="!role">
 				<div class="row">
-					<!-- Menu Heading -->
-					<div class="col-md-12">
-						details, recruit user, delete ...
+					<div class="col-md-12" ng-show="!editname && moderatorLoggedIn">
+						<b>Name:</b> {{projectInfo.Name}}
+						<button type="button" class="btn btn-sm pull-right" ng-click="editname = true">Edit...</button>
+						<br/>
 					</div>
-				</div>
-				<br>
-				<div class="row">
-					<!-- Menu -->
-					<div class="col-md-12">
-						<p>Comentary area (can be hidden): list of topics that can be "opened" and show posts and replies (?)</p>
-						<p>post new comment with modals (bootstrap)</p>
+					<div class="col-md-12 form-group" ng-show="editname">
+						<b>Name:</b>
+						<input class="form-control" type="text" ng-change="changeState = true" ng-model="projectInfo.Name"/>
 					</div>
+					
+					<div class="col-md-12" ng-show="!editdescription && moderatorLoggedIn">
+						<b>Description:</b> {{projectInfo.Description}}
+						<button type="button" class="btn btn-sm pull-right" ng-click="editdescription = true">Edit...</button>
+						<br/>
+					</div>
+					<div class="col-md-12 form-group" ng-show="editdescription">
+						<b>Description:</b>
+						<input class="form-control" type="text" ng-change="changeState = true" ng-model="projectInfo.Description"/>
+					</div>
+					
+					<div class="col-md-12" ng-show="!editusers && moderatorLoggedIn">
+						<b>Users:</b>
+						<span ng-repeat="user in users">
+							<a ng-href="#/user/{{user.UserID}}">{{user.Name}}</a>
+							({{user.Role}})
+							{{$last ? '' : ', '}}
+						</span>
+						<br/>
+						<button type="button" class="btn btn-sm pull-right" ng-click="editusers = true">Edit...</button>
+					</div>
+					<div class="col-md-12" ng-show="editusers">
+						<div class="form-group" ng-class="{'has-error': !isUsername(director), 'has-success': isUsername(director)}">
+							<label class="control-label">* Director:</label>
+							<input class="form-control" type="text" ng-change="changeState = true" ng-model="director" ng-readonly="!moderatorLoggedIn" name="Director" autocomplete="off" required placeholder="Username" typeahead="user for user in allUsernames | filter:$viewValue | limitTo:5">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Supervisors:</label>
+							<div class="input-group" ng-repeat="supervisor in supervisors track by $index" ng-class="{'has-error': !isUsername(supervisor.Name), 'has-success': isUsername(supervisor.Name)}">
+								<input type="text" class="form-control" ng-change="changeState = true" ng-model="supervisor.Name" name="Supervisor" autocomplete="off" placeholder="Username" typeahead="user for user in allUsernames | filter:$viewValue | limitTo:5">
+								<span class="input-group-btn">
+									<button class="btn btn-danger" class="form-control" ng-click="removeSupervisor(supervisor)">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button><!-- Make this an icon!! -->
+								</span>
+							</div>
+							<button class="btn form-control" ng-click="addSupervisor()">Add Supervisor...</button>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Artists:</label>
+							<div class="input-group" ng-repeat="artist in artists track by $index" ng-class="{'has-error': !isUsername(artist.Name), 'has-success': isUsername(artist.Name)}">
+								<input class="form-control" type="text" ng-change="changeState = true" ng-model="artist.Name" name="Artist" autocomplete="off" placeholder="Username" typeahead="user for user in allUsernames | filter:$viewValue | limitTo:5">
+								<span class="input-group-btn">
+									<button class="btn btn-danger" class="form-control" ng-click="removeArtist(artist)">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button><!-- Make this an icon!! -->
+								</span>
+							</div>
+							<button class="btn form-control" ng-click="addArtist()">Add Artist...</button>
+						</div>
+					</div>
+					
 					<div class="col-md-12">
 						<hr>
 						<button class="btn btn-warning" ng-disabled="!changeState" ng-click="saveChanges()">Save</button>
 					</div>
 				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-12">
+						<h3>Commentary area:</h2>
+						<div class="panel panel-default" ng-repeat="comment in comments track by $index">
+							<div class="panel-heading">
+								<font class="panel-title" align="left" size=3>
+									{{comment.Title}}
+								</font>
+								<button class="btn btn-danger pull-right glyphicon glyphicon-trash" ng-show="moderatorLoggedIn || (userid == comment.UserID)" ng-click="deleteComment(comment)"/>
+							</div>
+							<div class="panel-body">
+								<p>{{comment.Text}}</p>
+								<p align="right">
+									By <a ng-href="#/user/{{comment.UserID}}">{{getUsername(comment.UserID)}}</a> ({{comment.Date}})
+								</p>
+							</div>
+						</div>
+						<input class="form-control" type="text" ng-model="newComment.Title" placeholder="Title"/>
+						<textarea class="form-control fixed-horizontal" rows="3" placeholder="Comment" ng-model="newComment.Text" required></textarea>
+						<br/>
+						<button type="button" class="btn btn-primary pull-right" align="right" ng-click="postNewComment()" ng-disabled="newComment.Title == ''">Post Comment ...</button>
+					</div>
+				</div>
+			</div>
+
+            <div class="panel-body" ng-show="!role">
+                <span class="text-danger">You are not enrolled to this project.</span>
+            </div>
+		</div>
+
+		<div class="panel panel-default" ng-hide="!role">
+			<div class="panel-heading">
+				<h3 class="panel-title">New canvas</h3>
+			</div>
+  			<div class="panel-body">
+				<form role="form">
+					<div class="form-group">
+						<label>Title</label>
+						<input type="text" class="form-control" ng-model="newCanvas.title">
+					</div>
+					<div class="form-group">
+						<label>Description</label>
+						<textarea class="form-control" rows="2" ng-model="newCanvas.description"></textarea>
+					</div>
+					<div class="form-group">
+						<label>Notes</label>
+						<textarea class="form-control" rows="2" ng-model="newCanvas.notes"></textarea>
+					</div>
+					<div class="form-group">
+						<button class="btn btn-success pull-right" style="margin-left: 5px;" ng-click="createCanvas(newCanvas.title, newCanvas.description, newCanvas.notes); newCanvas.title = ''; newCanvas.description = ''; newCanvas.notes = ''">
+							<span class="fa fa-plus"></span> Create
+						</button>
+						<button class="btn btn-danger pull-right" ng-click="newCanvas.title = ''; newCanvas.description = ''; newCanvas.notes = ''">
+							<span class="fa fa-recycle"></span> Reset
+						</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

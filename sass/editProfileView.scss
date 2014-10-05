@@ -1,0 +1,21 @@
+.editProfileView {
+	p {
+		font-size: 150%;
+		margin: 3px;
+	}
+	.input-group {
+		width: 600px;
+	}
+	#userForm {
+		padding-top: 20px;
+	}
+	#userForm input {
+		width: 550px;
+		float: left;
+	}
+	#userForm label {
+		width: 100px;
+		float: left;
+		margin-right: 10px;
+	}
+}

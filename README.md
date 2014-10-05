@@ -6,8 +6,6 @@
 - Sass
 - Compass
 
-// TODO: list all dependencies
-
 ## Development
 ### Installation
 1. Install node dependencies
@@ -21,8 +19,6 @@
 - Automatic Sass deployment
 	- `grunt dev`
 
-## Documentation
-	// TODO
-
 ##Licensing
 All files in this repository are available under the AGPL License. See LICENSE file
+

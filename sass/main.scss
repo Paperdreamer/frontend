@@ -13,6 +13,22 @@ body {
 	@include box-shadow(5px 5px 10px 0 #4F4F4F);
 }
 
+#dropdownPicture {
+	padding: 0px; 
+	padding-top: 3px;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+canvas {
+	border: 1px solid black;
+}
+
 @import 'login';
 @import 'notification';
 @import 'projectView';
+@import 'profileView';
+@import 'editProfileView';
+@import 'forgotPassword';

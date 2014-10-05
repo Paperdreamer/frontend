@@ -4,4 +4,13 @@
 			cursor: move;
 		}
 	}
+
+	@media print {
+		.menu {
+			display: none;
+		}
+	}
 }
+
+.fixed-horizontal { resize:vertical; }
+

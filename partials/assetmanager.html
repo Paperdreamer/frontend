@@ -1,0 +1,119 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">Assetmanager</h4>
+			</div>
+			<div class="modal-body">
+
+
+				<div class="assetmanager row">
+					<div class="col-sm-3">
+						<h4>Tags</h4>
+						<table class="table table-condensed table-bordered table-hover tags">
+							<tr class="clickable" ng-class="!chosenTag ? 'warning' : ''">
+								<td ng-click="showAll()">All</td>
+							</tr>
+							<tr ng-repeat="tag in tags" class="clickable" ng-class="chosenTag == tag ? 'warning' : ''">
+								<td ng-click="showTag(tag)">{{tag.Name}}</td>
+							</tr>
+						</table>
+						<hr>
+						<form role="form" name="newTag" no-validate>
+							<div class="form-group">
+								<label>New Tag</label>
+								<input class="form-control" type="text" ng-model="newTagName" required ng-minlength="3">
+							</div>
+							<div class="form-group text-center">
+								<button type="submit" class="btn btn-success" ng-click="createNewTag(newTagName)" ng-disabled="newTag.$invalid">
+									<span class="glyphicon glyphicon-plus"></span> create
+								</button>
+							</div>
+						</form>
+
+					</div>
+
+					<div class="col-sm-9" style="max-height: 600px; overflow-y: scroll;" ng-hide="upload.show && !upload.inProgress">
+						<table class="table">
+							<thead>
+								<th style="width: 33%"><h4 ng-show="chosenTag">{{chosenTag.Name}}</h4></th>
+								<th style="width: 33%"></th>
+								<th style="width: 33%"></th>
+							</thead>
+
+							<tbody>
+								<tr ng-repeat="row in assets">
+									<td ng-repeat="asset in row" ng-dblclick="assignAsset(asset, asset.Filename)" class="clickable">
+
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h3 class="panel-title">{{asset.Name}}</h3>
+											</div>
+											<div class="panel-body">
+												<img style="width: 100%" src="../backend/assets/{{asset.Filename}}">
+											</div>
+										</div>
+
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+					<div class="col-sm-9" style="max-height: 600px; overflow-y: scroll;" ng-show="upload.show && !upload.inProgress">
+						<h3>Upload</h3>
+						<hr>
+						<form role="form" name="uploadForm" class="form-horizontal">
+						 					
+							<div class="form-group form-group-sm" ng-class="{'has-error': uploadForm.file.$invalid}">
+								<label class="control-label col-sm-4">Choose an image to upload</label>
+								<div class="col-sm-8">
+									<input type="file" name="file" ng-file-select="onFileSelect($files)" ng-model="file" required>
+								</div>
+							</div>
+							<div class="form-group form-group-sm" ng-class="{'has-error': uploadForm.assetName.$invalid}">
+								<label class="control-label col-sm-4">New asset's name</label>
+								<div class="col-sm-8">
+									<input class="form-control input-xs" name="assetName" type="text" ng-model="assetName" required>
+								</div>
+							</div>
+
+							<br>
+								<div class="well well-sm text-danger text-center" ng-hide="chosenTag">
+									<span class="text-warning fa fa-warning"></span> Please choose a Tag on the left first!
+								</div>
+							<br>
+
+							<div class="text-center">
+								<button class="btn btn-primary" ng-disabled="uploadForm.$invalid || !chosenTag" ng-click="startUpload(); upload.inProgress = true;"><span class="fa fa-upload"></span> start upload</button>
+							</div>
+
+						</form>
+					</div>
+
+					<div class="col-sm-9" ng-show="upload.inProgress">
+						<h3 class="text-center text-danger">Upload in progress. Please wait...</h3>
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="{{upload.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+								<span class="sr-only">{{upload.progress}}% Complete</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+
+
+		
+			</div>
+			<div class="modal-footer">
+
+				<button class="btn btn-default" ng-click="upload.show = true">Upload</button>
+				<button class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

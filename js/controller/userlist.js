@@ -1,4 +1,4 @@
-app.controller("userlistController", function ($scope, $rootScope, userlistFactory, userFactory) {
+app.controller("userlistController", function ($scope, $rootScope, userlistFactory, userFactory, hashService, $route) {
 	$scope.selected = 1;
 	$scope.administratorLoggedIn = false;
 	$scope.moderatorLoggedIn = false;
@@ -8,14 +8,18 @@ app.controller("userlistController", function ($scope, $rootScope, userlistFacto
 		$scope.moderatorLoggedIn = userFactory.isModerator();
 	});
 	
+	$scope.gravatarToPP = function(grmail, size) {
+		return "http://www.gravatar.com/avatar/" + hashService.MD5(grmail) + ".jpg?s=" + size;
+	};
+	
 	$scope.changeRole = function(userID, textRole) {
 		var role = 0;
 		if (textRole == "Administrator")
 			role = 2;
 		else if (textRole == "Moderator")
 			role = 1;
-		userlistFactory.changeRole(userID, role);
-		$scope.fetchUserlists();
+		userlistFactory.updateUser(userID, "Role", role);
+		$route.reload();
 	};
 
 	$scope.activateUser = function(username) {
@@ -49,10 +53,16 @@ app.controller("userlistController", function ($scope, $rootScope, userlistFacto
 		if (user.Admin == 1 && user.Deleteable == 0) {
 			return ["Administrator"];
 		}
-		if ($scope.administratorLoggedIn)
+		if ($scope.administratorLoggedIn) {
 			return ["Administrator", "Moderator", "User"];
-		if ($scope.moderatorLoggedIn)
-			return ["Moderator", "User"];
+		}
+		if ($scope.moderatorLoggedIn) {
+			if(user.Admin == 1 && user.Deleteable == 1) {
+				return ["Moderator"];
+			} else {
+				return ["Moderator", "User"];
+			}
+		}
 		return ["User"];	
 	};
 	$scope.fetchUserlists();

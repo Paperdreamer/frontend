@@ -59,6 +59,15 @@ var canvasClass = function (options) {
 
 				this.zoomObject(imageObject);
 
+				imageObject.dbProperties = {};
+
+				if (options.ID)
+				imageObject.dbProperties.AssetToCanvasID = options.ID;
+
+				if (options.asset) {
+					imageObject.dbProperties.asset = options.asset;	
+				}
+				
 				this.images[ID] = imageObject;
 				this._reorder();
 
@@ -139,9 +148,16 @@ var canvasClass = function (options) {
 			//this.canvas.setBackgroundImage(imgURL, this.canvas.renderAll.bind(this.canvas));
 		},
 
-		changeIndex: function (imageID, index) {
+		changeIndex: function (assetID, index) {
 			var size = _.size(this.images);
-			this.images[imageID].moveTo(size - (index + 1));
+
+			_.find(this.images, function (image){
+				return image.dbProperties.AssetToCanvasID == assetID;
+			}).moveTo(size - (index + 1));
+		},
+
+		removeImage: function (imageObject) {
+			this.canvas.remove(imageObject);
 		},
 
 		export: function () {

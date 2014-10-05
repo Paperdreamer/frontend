@@ -26,7 +26,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="http://paperdreamer.org">Paperdreamer</a>
+					<a class="navbar-brand" href="#dashboard">Paperdreamer</a>
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
@@ -34,9 +34,9 @@
 						<li ng-class="{active: currentPage == '/allProjects'}"><a ng-href="#allProjects">All Projects</a></li>
 						<li ng-class="{active: currentPage == '/userlist'}"><a ng-href="#userlist">Users</a></li>
 						<li class="dropdown">
-							<a ng-href="#{{currentPage}}" class="dropdown-toggle" data-toggle="dropdown">{{userdata.Username}}<b class="caret"></b></a>
+							<a id="dropdownPicture" ng-href="#{{currentPage}}" class="dropdown-toggle" data-toggle="dropdown"><img ng-src="{{gravatarToPP(userdata.GravatarEmail, 40)}}"><b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a ng-href="#user/{{userdata.Username}}">Edit Profile</a>
+								<li><a ng-href="#user/{{userdata.ID}}">My Profile</a>
 								<li class="divider"></li>
 								<li><a ng-href="#login" ng-click="logout()">Logout</a></li>
 							</ul>
@@ -61,14 +61,23 @@
 
 		<!-- dependencies -->
 		<script src="components/jquery/dist/jquery.min.js"></script>
+		<script src="components/jquery/dist/jquery.js"></script>
+		<script src="components/jquery-ui/ui/core.js"></script>
+		<script src="components/jquery-ui/ui/widget.js"></script>
+		<script src="components/jquery-ui/ui/mouse.js"></script>
+		<script src="components/jquery-ui/ui/sortable.js"></script>
 
 		<script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+		<script src="components/ng-file-upload/angular-file-upload-shim.js"></script>
 
 		<script src="components/angular/angular.js"></script>
 
 		<script src="components/angular-route/angular-route.min.js"></script>
 
 		<script src="components/restangular/dist/restangular.js"></script>
+		
+		<script src="components/ng-file-upload/angular-file-upload.js"></script>
 
 		<script src="components/underscore/underscore.js"></script>
 		
@@ -94,10 +103,12 @@
 		<script src="js/factories/settings.js"></script>
 		<script src="js/factories/registration.js"></script>
 		<script src="js/factories/project.js"></script>
-		<script src="js/factories/newProject.js"></script>
+		<script src="js/factories/hashService.js"></script>
+		<script src="js/factories/asset.js"></script>
 
 		<!-- directives -->
 		<script src="js/directives/pdcanvas.js"></script>
+		<script src="js/directives/assetmanager.js"></script>
 
 		<!-- controller -->
 		<script src="js/controller/header.js"></script>
@@ -109,6 +120,9 @@
 		<script src="js/controller/canvasEdit.js"></script>
 		<script src="js/controller/userlist.js"></script>
 		<script src="js/controller/newProject.js"></script>
+		<script src="js/controller/profile.js"></script>
+		<script src="js/controller/editProfile.js"></script>
+		<script src="js/controller/forgotPassword.js"></script>
 
 	</body>
 </html>

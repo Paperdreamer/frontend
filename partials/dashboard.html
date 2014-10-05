@@ -2,7 +2,7 @@
 
 <div class="dashboard" id="belongedProjects">
 	<div class="list-group" ng-repeat="project in belongedProjects">
-		<a href ng-click="goToProjectPage(project.ID)" class="list-group-item active">
+		<a ng-click="projectClick(project)" class="list-group-item active" style="cursor: pointer;">
 			<h4 class="list-group-item-heading">{{project.Name}}</h4>
 			<p class="list-group-item-text">{{project.Description}}</p>
 			<span class="label label-success" ng-show="!{{project.Approved}}">Open</span>
@@ -10,7 +10,7 @@
 			<div class="btn-group btn-group-xs" ng-show="moderatorLoggedIn || project.Role == 'Director'">
 				<button type="button" class="btn btn-default" ng-show="!{{project.Approved}}" ng-click="closeProject($event, project.ID)">Close</button>
 				<button type="button" class="btn btn-default" ng-show="{{project.Approved}}" ng-click="openProject($event, project.ID)">Open</button>
-				<button type="button" class="btn btn-default" ng-show="moderatorLoggedIn" ng-click="deleteProject($event, project.ID)">Delete</button>
+				<button type="button" class="btn btn-default" ng-show="moderatorLoggedIn" ng-click="deleteProject($event, project.ID)" ng-disabled="project.Approved==false">Delete</button>
 			</div>
 		</a>
 	</div>
