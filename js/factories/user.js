@@ -8,8 +8,8 @@ app.factory("userFactory", function ($http, settingsFactory, notificationFactory
 				method: 'GET', 
 				url: settingsFactory.backendUrl + 'login', 
 				headers: {
-					username: nameOrMail,
-					passwordHash: passwordHash
+					Username: nameOrMail,
+					Passwordhash: passwordHash
 				}
 			}).success(_.bind(function (data, status, headers, config) {
 				if (data != "false") {
