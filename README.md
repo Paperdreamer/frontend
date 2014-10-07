@@ -18,3 +18,7 @@
 ### Helpful commands
 - Automatic Sass deployment
 	- `grunt dev`
+
+##Licensing
+All files in this repository are available under the AGPL License. See LICENSE file
+
