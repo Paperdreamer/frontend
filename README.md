@@ -6,8 +6,6 @@
 - Sass
 - Compass
 
-// TODO: list all dependencies
-
 ## Development
 ### Installation
 1. Install node dependencies
@@ -20,6 +18,3 @@
 ### Helpful commands
 - Automatic Sass deployment
 	- `grunt dev`
-
-## Documentation
-	// TODO
